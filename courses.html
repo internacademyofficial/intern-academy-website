@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | Intern Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> Intern<span>Academy</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="internships.html" class="nav-link">Internships</a>
+                <a href="courses.html" class="nav-link" style="color: var(--accent);">Courses</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-links">
+                <a href="login.html" class="btn btn-secondary">Log In</a>
+                <a href="register-student.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <header class="section" style="background: white; padding-bottom: 2rem;">
+        <div class="container">
+            <h1 class="text-center">Upgrade Your Skills</h1>
+            <p class="text-center" style="max-width: 600px; margin: 0 auto;">Industry-relevant courses designed to help
+                you land your dream internship.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <!-- Filters -->
+            <div style="margin-bottom: 2rem; display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem;">
+                <button class="btn btn-primary filter-btn active" onclick="filterCourses('all')">All Courses</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('development')">Web
+                    Development</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('data-science')">Data
+                    Science</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('design')">Design</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('marketing')">Marketing</button>
+            </div>
+
+            <div class="grid-3" id="coursesGrid">
+                <!-- Course 1 - ReactJS -->
+                <div class="card course-item" data-category="development" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-react fa-4x" style="color: #61DAFB;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DEVELOPMENT</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">ReactJS Masterclass</h3>
+                        <p style="font-size: 0.9rem;">Master modern React with Hooks, Redux, and Next.js.</p>
+                        <div
+                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700;">₹2,499</span>
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 - Python -->
+                <div class="card course-item" data-category="data-science" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-python fa-4x" style="color: #3776AB;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DATA SCIENCE</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Python for Data Science</h3>
+                        <p style="font-size: 0.9rem;">Learn Python, Pandas, NumPy and Matplotlib from scratch.</p>
+                        <div
+                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700;">₹3,999</span>
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 - UI/UX -->
+                <div class="card course-item" data-category="design" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-paint-brush fa-4x" style="color: #F24E1E;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DESIGN</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">UI/UX Design Bootcamp</h3>
+                        <p style="font-size: 0.9rem;">Become a professional UI/UX designer with Figma.</p>
+                        <div
+                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700;">₹4,999</span>
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 4 - Node.js -->
+                <div class="card course-item" data-category="development" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-node fa-4x" style="color: #68a063;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">BACKEND</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Node.js Advanced</h3>
+                        <p style="font-size: 0.9rem;">Build scalable backend systems with Node.js and MongoDB.</p>
+                        <div
+                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700;">₹3,499</span>
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 5 - AWS -->
+                <div class="card course-item" data-category="development" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-aws fa-4x" style="color: #FF9900;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">CLOUD</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">AWS Certified Practitioner</h3>
+                        <p style="font-size: 0.9rem;">Start your cloud journey with official AWS certification prep.</p>
+                        <div
+                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700;">₹5,999</span>
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 6 - Marketing -->
+                <div class="card course-item" data-category="marketing" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-bullhorn fa-4x" style="color: #E60023;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">MARKETING</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Digital Marketing 101</h3>
+                        <p style="font-size: 0.9rem;">SEO, SEM, and Social Media Marketing strategies.</p>
+                        <div
+                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700;">₹1,999</span>
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="color: white;">
+                        <i class="fas fa-graduation-cap"></i>
+                        Intern<span>Academy</span>
+                    </a>
+                    <p>Empowering the next generation of tech leaders through premium internships and world-class
+                        education.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="internships.html">Browse Internships</a></li>
+                        <li><a href="courses.html">Browse Courses</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="news.html">News & Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Intern Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for course filtering -->
+    <script>
+        function filterCourses(category) {
+            const courses = document.querySelectorAll('.course-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button styles
+            buttons.forEach(btn => {
+                btn.classList.remove('btn-primary', 'active');
+                btn.classList.add('btn-secondary');
+            });
+            event.target.classList.remove('btn-secondary');
+            event.target.classList.add('btn-primary', 'active');
+
+            // Filter courses
+            courses.forEach(course => {
+                if (category === 'all' || course.dataset.category === category) {
+                    course.style.display = 'block';
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>

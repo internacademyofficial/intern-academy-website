@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Intern Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> Intern<span>Academy</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="internships.html" class="nav-link">Internships</a>
+                <a href="courses.html" class="nav-link">Courses</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link" style="color: var(--accent);">Contact</a>
+            </div>
+            <div class="nav-links">
+                <a href="login.html" class="btn btn-secondary">Log In</a>
+                <a href="register-student.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+                <div>
+                    <h1 style="margin-bottom: 1.5rem;">Get in Touch</h1>
+                    <p style="font-size: 1.1rem; margin-bottom: 3rem;">Have questions about our internships or courses?
+                        We're here to help.</p>
+
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div
+                                style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent);">
+                                <i class="fas fa-map-marker-alt fa-lg"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Visit Us</h4>
+                                <p style="margin: 0;">123 Tech Park, Cyber City<br>Bangalore, Karnataka 560100</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div
+                                style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent);">
+                                <i class="fas fa-envelope fa-lg"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Email Us</h4>
+                                <p style="margin: 0;">support@internacademy.com<br>careers@internacademy.com</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem;">
+                            <div
+                                style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent);">
+                                <i class="fas fa-phone fa-lg"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Call Us</h4>
+                                <p style="margin: 0;">+91 98765 43210<br>Mon - Fri, 9am - 6pm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem;">Send us a message</h3>
+                    <form>
+                        <div style="margin-bottom: 1rem;">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" placeholder="John Doe">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="john@example.com">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label class="form-label">Subject</label>
+                            <select class="form-control">
+                                <option>General Inquiry</option>
+                                <option>Course Support</option>
+                                <option>Internship Application</option>
+                                <option>Partnership</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" rows="5" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Intern Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+
+</html>

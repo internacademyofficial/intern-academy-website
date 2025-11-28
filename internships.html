@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Internships | Intern Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> Intern<span>Academy</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="internships.html" class="nav-link" style="color: var(--accent);">Internships</a>
+                <a href="courses.html" class="nav-link">Courses</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-links">
+                <a href="login.html" class="btn btn-secondary">Log In</a>
+                <a href="register-student.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <header class="section" style="background: white; padding-bottom: 2rem;">
+        <div class="container">
+            <h1 class="text-center">Find Your Dream Internship</h1>
+            <div style="max-width: 600px; margin: 2rem auto 0; display: flex; gap: 0.5rem;">
+                <input type="text" class="form-control" placeholder="Job title, skills, or company">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 250px 1fr; gap: 2rem;">
+                <!-- Sidebar Filters -->
+                <aside>
+                    <div class="card" style="padding: 1.5rem;">
+                        <h4 style="margin-bottom: 1.5rem;">Filters</h4>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Location</h5>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Remote
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Bangalore
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Mumbai
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Delhi NCR
+                            </label>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Category</h5>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Engineering
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Design
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Marketing
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox"> Finance
+                            </label>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Stipend</h5>
+                            <input type="range" style="width: 100%;">
+                            <div
+                                style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-light);">
+                                <span>0</span>
+                                <span>50k+</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Internship List -->
+                <div class="internship-list">
+                    <!-- Item 1 -->
+                    <div class="internship-card">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-google fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Frontend Developer Intern</h3>
+                                <p class="text-primary">Google Inc.</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore (Hybrid)</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹45,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 6 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="internship-card">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-amazon fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>SDE Intern</h3>
+                                <p class="text-primary">Amazon</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Hyderabad</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹80,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 3 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="internship-card">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-spotify fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Product Design Intern</h3>
+                                <p class="text-primary">Spotify</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Mumbai (Remote)</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹35,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 4 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="internship-card">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-microsoft fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Data Science Intern</h3>
+                                <p class="text-primary">Microsoft</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹60,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 6 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="internship-card">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-uber fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Marketing Intern</h3>
+                                <p class="text-primary">Uber</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Gurgaon</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹25,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 3 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Intern Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+
+</html>
