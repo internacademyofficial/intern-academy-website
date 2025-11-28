@@ -35,8 +35,8 @@
         <div class="container">
             <h1 class="text-center">Find Your Dream Internship</h1>
             <div style="max-width: 600px; margin: 2rem auto 0; display: flex; gap: 0.5rem;">
-                <input type="text" class="form-control" placeholder="Job title, skills, or company">
-                <button class="btn btn-primary">Search</button>
+                <input type="text" id="searchInput" class="form-control" placeholder="Job title, skills, or company">
+                <button class="btn btn-primary" onclick="filterInternships()">Search</button>
             </div>
         </div>
     </header>
@@ -53,19 +53,33 @@
                             <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Location</h5>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Remote
+                                <input type="checkbox" class="location-filter" value="remote"
+                                    onchange="filterInternships()"> Remote
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Bangalore
+                                <input type="checkbox" class="location-filter" value="bangalore"
+                                    onchange="filterInternships()"> Bangalore
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Mumbai
+                                <input type="checkbox" class="location-filter" value="mumbai"
+                                    onchange="filterInternships()"> Mumbai
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Delhi NCR
+                                <input type="checkbox" class="location-filter" value="delhi"
+                                    onchange="filterInternships()"> Delhi NCR
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="location-filter" value="hyderabad"
+                                    onchange="filterInternships()"> Hyderabad
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="location-filter" value="gurgaon"
+                                    onchange="filterInternships()"> Gurgaon
                             </label>
                         </div>
 
@@ -73,38 +87,47 @@
                             <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Category</h5>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Engineering
+                                <input type="checkbox" class="category-filter" value="engineering"
+                                    onchange="filterInternships()"> Engineering
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Design
+                                <input type="checkbox" class="category-filter" value="design"
+                                    onchange="filterInternships()"> Design
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Marketing
+                                <input type="checkbox" class="category-filter" value="marketing"
+                                    onchange="filterInternships()"> Marketing
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox"> Finance
+                                <input type="checkbox" class="category-filter" value="data-science"
+                                    onchange="filterInternships()"> Data Science
                             </label>
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Stipend</h5>
-                            <input type="range" style="width: 100%;">
+                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Min Stipend (₹/month)</h5>
+                            <input type="range" id="stipendRange" min="0" max="100000" value="0" step="5000"
+                                style="width: 100%;" oninput="updateStipendValue(); filterInternships();">
                             <div
                                 style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-light);">
-                                <span>0</span>
-                                <span>50k+</span>
+                                <span id="stipendValue">₹0</span>
+                                <span>₹1,00,000</span>
                             </div>
                         </div>
+
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;"
+                            onclick="clearFilters()">Clear Filters</button>
                     </div>
                 </aside>
 
                 <!-- Internship List -->
-                <div class="internship-list">
-                    <!-- Item 1 -->
-                    <div class="internship-card">
+                <div class="internship-list" id="internshipList">
+                    <!-- Item 1 - Google Frontend Developer -->
+                    <div class="internship-card" data-location="bangalore" data-category="engineering"
+                        data-stipend="45000">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
                                 <i class="fab fa-google fa-2x"></i>
@@ -122,8 +145,9 @@
                         <a href="#" class="btn btn-secondary">Apply Now</a>
                     </div>
 
-                    <!-- Item 2 -->
-                    <div class="internship-card">
+                    <!-- Item 2 - Amazon SDE -->
+                    <div class="internship-card" data-location="hyderabad" data-category="engineering"
+                        data-stipend="80000">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
                                 <i class="fab fa-amazon fa-2x"></i>
@@ -141,8 +165,8 @@
                         <a href="#" class="btn btn-secondary">Apply Now</a>
                     </div>
 
-                    <!-- Item 3 -->
-                    <div class="internship-card">
+                    <!-- Item 3 - Spotify Product Design -->
+                    <div class="internship-card" data-location="mumbai" data-category="design" data-stipend="35000">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
                                 <i class="fab fa-spotify fa-2x"></i>
@@ -160,8 +184,9 @@
                         <a href="#" class="btn btn-secondary">Apply Now</a>
                     </div>
 
-                    <!-- Item 4 -->
-                    <div class="internship-card">
+                    <!-- Item 4 - Microsoft Data Science -->
+                    <div class="internship-card" data-location="bangalore" data-category="data-science"
+                        data-stipend="60000">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
                                 <i class="fab fa-microsoft fa-2x"></i>
@@ -179,8 +204,8 @@
                         <a href="#" class="btn btn-secondary">Apply Now</a>
                     </div>
 
-                    <!-- Item 5 -->
-                    <div class="internship-card">
+                    <!-- Item 5 - Uber Marketing -->
+                    <div class="internship-card" data-location="gurgaon" data-category="marketing" data-stipend="25000">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
                                 <i class="fab fa-uber fa-2x"></i>
@@ -197,7 +222,72 @@
                         </div>
                         <a href="#" class="btn btn-secondary">Apply Now</a>
                     </div>
+
+                    <!-- Item 6 - Netflix Content Writer -->
+                    <div class="internship-card" data-location="mumbai" data-category="marketing" data-stipend="30000">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-netflix fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Content Marketing Intern</h3>
+                                <p class="text-primary">Netflix</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹30,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 4 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+
+                    <!-- Item 7 - Adobe UX Design -->
+                    <div class="internship-card" data-location="bangalore" data-category="design" data-stipend="50000">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fas fa-palette fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>UX Design Intern</h3>
+                                <p class="text-primary">Adobe</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹50,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 5 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
+
+                    <!-- Item 8 - Meta Backend Developer -->
+                    <div class="internship-card" data-location="remote" data-category="engineering"
+                        data-stipend="90000">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fab fa-meta fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Backend Developer Intern</h3>
+                                <p class="text-primary">Meta</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹90,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 6 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                    </div>
                 </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" style="display: none; text-align: center; padding: 3rem; color: var(--text-light);">
+                <i class="fas fa-search fa-3x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                <h3>No internships found</h3>
+                <p>Try adjusting your filters or search criteria</p>
             </div>
         </div>
     </section>
@@ -209,6 +299,87 @@
             </div>
         </div>
     </footer>
+
+    <!-- Internship Filtering Script -->
+    <script>
+        function filterInternships() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const selectedLocations = Array.from(document.querySelectorAll('.location-filter:checked')).map(cb => cb.value);
+            const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+            const minStipend = parseInt(document.getElementById('stipendRange').value);
+
+            const internshipCards = document.querySelectorAll('.internship-card');
+            let visibleCount = 0;
+
+            internshipCards.forEach(card => {
+                const location = card.getAttribute('data-location');
+                const category = card.getAttribute('data-category');
+                const stipend = parseInt(card.getAttribute('data-stipend'));
+                const text = card.textContent.toLowerCase();
+
+                // Check all filter conditions
+                const matchesSearch = !searchInput || text.includes(searchInput);
+                const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(location);
+                const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+                const matchesStipend = stipend >= minStipend;
+
+                // Show card only if all conditions match
+                if (matchesSearch && matchesLocation && matchesCategory && matchesStipend) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            const internshipList = document.getElementById('internshipList');
+            if (visibleCount === 0) {
+                internshipList.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                internshipList.style.display = 'block';
+                noResults.style.display = 'none';
+            }
+        }
+
+        function updateStipendValue() {
+            const stipendRange = document.getElementById('stipendRange');
+            const stipendValue = document.getElementById('stipendValue');
+            const value = parseInt(stipendRange.value);
+            stipendValue.textContent = '₹' + value.toLocaleString('en-IN');
+        }
+
+        function clearFilters() {
+            // Clear search input
+            document.getElementById('searchInput').value = '';
+
+            // Uncheck all location filters
+            document.querySelectorAll('.location-filter').forEach(cb => cb.checked = false);
+
+            // Uncheck all category filters
+            document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
+
+            // Reset stipend slider
+            document.getElementById('stipendRange').value = 0;
+            updateStipendValue();
+
+            // Reapply filters (which will show all)
+            filterInternships();
+        }
+
+        // Allow search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                filterInternships();
+            }
+        });
+
+        // Initialize stipend value on page load
+        updateStipendValue();
+    </script>
+
     <script src="app.js"></script>
 </body>
 
