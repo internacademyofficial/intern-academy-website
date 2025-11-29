@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // However, my CSS structure for nav-links was display: flex.
             // Let's adjust the logic to toggle a class on the navbar or handle it via inline styles for simplicity in this prototype,
             // or better, toggle a class 'active' and add CSS for it.
-            
+
             // Actually, looking at my CSS, .nav-links is hidden on mobile.
             // I need to add a class to show it.
             navLinks.classList.toggle('active');
-            
+
             // For this to work, I need to add the .active style in CSS or inject it here.
             // Let's assume I'll add a quick style injection for the mobile menu.
             if (navLinks.classList.contains('active')) {
@@ -42,12 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Simple Form Handling (Prevent Default)
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('This is a demo. Form submission is mocked!');
-        });
-    });
+    // Note: Form submissions are now handled by Supabase handlers in supabase-config.js
+    // Individual forms have onsubmit handlers: handleStudentRegistration, handleCompanyRegistration, handleContactForm
 });
