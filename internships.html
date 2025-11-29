@@ -9,6 +9,79 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,7 +96,7 @@
                 <a href="about.html" class="nav-link">About Us</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </div>
-            <div class="nav-links">
+            <div class="nav-links" id="authButtons">
                 <a href="login.html" class="btn btn-secondary">Log In</a>
                 <a href="register-student.html" class="btn btn-primary">Get Started</a>
             </div>
@@ -142,7 +215,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="Frontend Developer Intern"
+                            data-company="Google Inc." onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 2 - Amazon SDE -->
@@ -162,7 +236,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="SDE Intern" data-company="Amazon"
+                            onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 3 - Spotify Product Design -->
@@ -181,7 +256,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="Product Design Intern"
+                            data-company="Spotify" onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 4 - Microsoft Data Science -->
@@ -201,7 +277,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="Data Science Intern"
+                            data-company="Microsoft" onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 5 - Uber Marketing -->
@@ -220,7 +297,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="Marketing Intern"
+                            data-company="Uber" onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 6 - Netflix Content Writer -->
@@ -239,7 +317,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="Content Marketing Intern"
+                            data-company="Netflix" onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 7 - Adobe UX Design -->
@@ -258,7 +337,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="UX Design Intern"
+                            data-company="Adobe" onclick="openApplyModal(this)">Apply Now</button>
                     </div>
 
                     <!-- Item 8 - Meta Backend Developer -->
@@ -278,7 +358,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn btn-secondary">Apply Now</a>
+                        <button class="btn btn-secondary apply-btn" data-internship="Backend Developer Intern"
+                            data-company="Meta" onclick="openApplyModal(this)">Apply Now</button>
                     </div>
                 </div>
             </div>
@@ -292,6 +373,70 @@
         </div>
     </section>
 
+    <!-- Application Modal -->
+    <div id="applyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Apply for Internship</h2>
+                <span class="close" onclick="closeApplyModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="applyForm">
+                    <input type="hidden" id="applyInternshipTitle">
+                    <input type="hidden" id="applyCompanyName">
+                    <input type="hidden" id="applyUserEmail">
+                    <input type="hidden" id="applyUserId">
+
+                    <div id="loginPrompt" style="display: none; padding: 2rem; text-align: center;">
+                        <i class="fas fa-lock fa-3x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+                        <h3>Login Required</h3>
+                        <p style="margin: 1rem 0;">You need to be logged in to apply for internships.</p>
+                        <a href="login.html" class="btn btn-primary">Login Now</a>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">
+                            Don't have an account? <a href="register-student.html">Register here</a>
+                        </p>
+                    </div>
+
+                    <div id="applicationForm">
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                            <p style="margin: 0; font-size: 0.9rem;"><strong>Position:</strong> <span
+                                    id="displayInternship"></span></p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;"><strong>Company:</strong> <span
+                                    id="displayCompany"></span></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone Number <span style="color: red;">*</span></label>
+                            <input type="tel" id="applyPhone" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Resume/CV Link (Google Drive, Dropbox, etc.) <span
+                                    style="color: red;">*</span></label>
+                            <input type="url" id="applyResumeUrl" class="form-control"
+                                placeholder="https://drive.google.com/..." required>
+                            <small style="color: var(--text-light); font-size: 0.85rem;">Make sure your link is
+                                publicly accessible</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Cover Letter (Optional)</label>
+                            <textarea id="applyCoverLetter" class="form-control" rows="5"
+                                placeholder="Tell us why you're a great fit for this position..."></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                <i class="fas fa-paper-plane"></i> Submit Application
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="closeApplyModal()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-bottom">
@@ -300,8 +445,24 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+
     <!-- Internship Filtering Script -->
     <script>
+        let currentUser = null;
+
+        // Check authentication status on page load
+        async function checkUserAuth() {
+            const session = await checkAuth();
+            if (session && session.user) {
+                currentUser = session.user;
+            }
+        }
+
         function filterInternships() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const selectedLocations = Array.from(document.querySelectorAll('.location-filter:checked')).map(cb => cb.value);
@@ -346,14 +507,209 @@
 
         function updateStipendValue() {
             const stipendRange = document.getElementById('stipendRange');
-            const stipendValue = document.getElementById('stipendValue');
-            const value = parseInt(stipendRange.value);
-            stipendValue.textContent = '₹' + value.toLocaleString('en-IN');
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹30,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 4 Months</span>
+                                </div >
+                            </div >
+                        </div >
+                <button class="btn btn-secondary apply-btn" data-internship="Content Marketing Intern"
+                    data-company="Netflix" onclick="openApplyModal(this)">Apply Now</button>
+                    </div >
+
+                    <!-- Item 7 - Adobe UX Design -->
+                    <div class="internship-card" data-location="bangalore" data-category="design" data-stipend="50000">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fas fa-palette fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>UX Design Intern</h3>
+                                <p class="text-primary">Adobe</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹50,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 5 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary apply-btn" data-internship="UX Design Intern"
+                            data-company="Adobe" onclick="openApplyModal(this)">Apply Now</button>
+                    </div>
+
+                    <!--Item 8 - Meta Backend Developer-- >
+                <div class="internship-card" data-location="remote" data-category="engineering"
+                    data-stipend="90000">
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <div class="company-logo">
+                            <i class="fab fa-meta fa-2x"></i>
+                        </div>
+                        <div class="internship-info">
+                            <h3>Backend Developer Intern</h3>
+                            <p class="text-primary">Meta</p>
+                            <div class="internship-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+                                <span><i class="fas fa-money-bill-wave"></i> ₹90,000/mo</span>
+                                <span><i class="fas fa-clock"></i> 6 Months</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary apply-btn" data-internship="Backend Developer Intern"
+                        data-company="Meta" onclick="openApplyModal(this)">Apply Now</button>
+                </div>
+                </div >
+            </div >
+
+            < !--No Results Message-- >
+                <div id="noResults" style="display: none; text-align: center; padding: 3rem; color: var(--text-light);">
+                    <i class="fas fa-search fa-3x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <h3>No internships found</h3>
+                    <p>Try adjusting your filters or search criteria</p>
+                </div>
+        </div >
+    </section >
+
+    < !--Application Modal-- >
+                <div id="applyModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="modalTitle">Apply for Internship</h2>
+                            <span class="close" onclick="closeApplyModal()">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="applyForm">
+                                <input type="hidden" id="applyInternshipTitle">
+                                    <input type="hidden" id="applyCompanyName">
+                                        <input type="hidden" id="applyUserEmail">
+                                            <input type="hidden" id="applyUserId">
+
+                                                <div id="loginPrompt" style="display: none; padding: 2rem; text-align: center;">
+                                                    <i class="fas fa-lock fa-3x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+                                                    <h3>Login Required</h3>
+                                                    <p style="margin: 1rem 0;">You need to be logged in to apply for internships.</p>
+                                                    <a href="login.html" class="btn btn-primary">Login Now</a>
+                                                    <p style="margin-top: 1rem; font-size: 0.9rem;">
+                                                        Don't have an account? <a href="register-student.html">Register here</a>
+                                                    </p>
+                                                </div>
+
+                                                <div id="applicationForm">
+                                                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                                        <p style="margin: 0; font-size: 0.9rem;"><strong>Position:</strong> <span
+                                                            id="displayInternship"></span></p>
+                                                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;"><strong>Company:</strong> <span
+                                                            id="displayCompany"></span></p>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label">Phone Number <span style="color: red;">*</span></label>
+                                                        <input type="tel" id="applyPhone" class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label">Resume/CV Link (Google Drive, Dropbox, etc.) <span
+                                                            style="color: red;">*</span></label>
+                                                        <input type="url" id="applyResumeUrl" class="form-control"
+                                                            placeholder="https://drive.google.com/..." required>
+                                                            <small style="color: var(--text-light); font-size: 0.85rem;">Make sure your link is
+                                                                publicly accessible</small>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label">Cover Letter (Optional)</label>
+                                                        <textarea id="applyCoverLetter" class="form-control" rows="5"
+                                                            placeholder="Tell us why you're a great fit for this position..."></textarea>
+                                                    </div>
+
+                                                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                                                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                                            <i class="fas fa-paper-plane"></i> Submit Application
+                                                        </button>
+                                                        <button type="button" class="btn btn-secondary" onclick="closeApplyModal()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <footer>
+                                    <div class="container">
+                                        <div class="footer-bottom">
+                                            <p>&copy; 2024 Intern Academy. All rights reserved.</p>
+                                        </div>
+                                    </div>
+                                </footer>
+
+                                <!-- Scripts -->
+                                <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Internship Filtering Script -->
+    <script>
+                            let currentUser = null;
+
+                            // Check authentication status on page load
+                            async function checkUserAuth() {
+            const session = await checkAuth();
+                            if (session && session.user) {
+                                currentUser = session.user;
+            }
         }
 
-        function clearFilters() {
-            // Clear search input
-            document.getElementById('searchInput').value = '';
+                            function filterInternships() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const selectedLocations = Array.from(document.querySelectorAll('.location-filter:checked')).map(cb => cb.value);
+            const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+                            const minStipend = parseInt(document.getElementById('stipendRange').value);
+
+                            const internshipCards = document.querySelectorAll('.internship-card');
+                            let visibleCount = 0;
+
+            internshipCards.forEach(card => {
+                const location = card.getAttribute('data-location');
+                            const category = card.getAttribute('data-category');
+                            const stipend = parseInt(card.getAttribute('data-stipend'));
+                            const text = card.textContent.toLowerCase();
+
+                            // Check all filter conditions
+                            const matchesSearch = !searchInput || text.includes(searchInput);
+                            const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(location);
+                            const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+                const matchesStipend = stipend >= minStipend;
+
+                            // Show card only if all conditions match
+                            if (matchesSearch && matchesLocation && matchesCategory && matchesStipend) {
+                                card.style.display = 'flex';
+                            visibleCount++;
+                } else {
+                                card.style.display = 'none';
+                }
+            });
+
+                            // Show/hide no results message
+                            const noResults = document.getElementById('noResults');
+                            const internshipList = document.getElementById('internshipList');
+                            if (visibleCount === 0) {
+                                internshipList.style.display = 'none';
+                            noResults.style.display = 'block';
+            } else {
+                                internshipList.style.display = 'block';
+                            noResults.style.display = 'none';
+            }
+        }
+
+                            function updateStipendValue() {
+            const stipendRange = document.getElementById('stipendRange');
+                            const stipendValue = document.getElementById('stipendValue');
+                            const value = parseInt(stipendRange.value);
+                            stipendValue.textContent = '₹' + value.toLocaleString('en-IN');
+        }
+
+                            function clearFilters() {
+                                // Clear search input
+                                document.getElementById('searchInput').value = '';
 
             // Uncheck all location filters
             document.querySelectorAll('.location-filter').forEach(cb => cb.checked = false);
@@ -361,13 +717,130 @@
             // Uncheck all category filters
             document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
 
-            // Reset stipend slider
-            document.getElementById('stipendRange').value = 0;
-            updateStipendValue();
+                            // Reset stipend slider
+                            document.getElementById('stipendRange').value = 0;
+                            updateStipendValue();
 
-            // Reapply filters (which will show all)
-            filterInternships();
+                            // Reapply filters (which will show all)
+                            filterInternships();
         }
+
+                            // Modal Functions
+                            async function openApplyModal(button) {
+                                console.log('Open Apply Modal clicked');
+                            try {
+                const modal = document.getElementById('applyModal');
+                            const internship = button.getAttribute('data-internship');
+                            const company = button.getAttribute('data-company');
+
+                            console.log('Internship:', internship, 'Company:', company);
+
+                            document.getElementById('modalTitle').textContent = `Apply for ${internship}`;
+                document.getElementById('displayInternship').textContent = internship;
+                document.getElementById('displayCompany').textContent = company;
+                document.getElementById('applyInternshipTitle').value = internship;
+                document.getElementById('applyCompanyName').value = company;
+
+                // Check if user is logged in
+                let session = null;
+                try {
+                    if (typeof checkAuth === 'function') {
+                        session = await checkAuth();
+                    } else {
+                        console.error('checkAuth function is not defined');
+                        alert('Error: Authentication system not loaded. Please refresh the page.');
+                        return;
+                    }
+                } catch (err) {
+                    console.error('Error checking auth:', err);
+                }
+
+                if (!session || !session.user) {
+                    console.log('User not logged in');
+                    document.getElementById('loginPrompt').style.display = 'block';
+                    document.getElementById('applicationForm').style.display = 'none';
+                } else {
+                    console.log('User logged in:', session.user.email);
+                    currentUser = session.user; // Ensure currentUser is set
+                    document.getElementById('loginPrompt').style.display = 'none';
+                    document.getElementById('applicationForm').style.display = 'block';
+                    document.getElementById('applyUserEmail').value = session.user.email;
+                    document.getElementById('applyUserId').value = session.user.id;
+
+                    // Try to fetch user profile to pre-fill phone
+                    try {
+                        const { data: profile, error } = await supabase
+                            .from('student_registrations')
+                            .select('phone, full_name')
+                            .eq('user_id', session.user.id)
+                            .single();
+
+                        if (profile && profile.phone) {
+                            document.getElementById('applyPhone').value = profile.phone;
+                        }
+                    } catch (err) {
+                        console.warn('Error fetching profile:', err);
+                    }
+                }
+
+                modal.style.display = 'block';
+            } catch (error) {
+                console.error('Error in openApplyModal:', error);
+                alert('Something went wrong. Please check the console for details.');
+            }
+        }
+
+        function closeApplyModal() {
+            document.getElementById('applyModal').style.display = 'none';
+            document.getElementById('applyForm').reset();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('applyModal');
+            if (event.target == modal) {
+                closeApplyModal();
+            }
+        }
+
+        // Handle application form submission
+        document.getElementById('applyForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+
+            try {
+                const formData = {
+                    user_id: document.getElementById('applyUserId').value,
+                    student_name: currentUser?.user_metadata?.full_name || 'Student',
+                    email: document.getElementById('applyUserEmail').value,
+                    phone: document.getElementById('applyPhone').value,
+                    internship_title: document.getElementById('applyInternshipTitle').value,
+                    company_name: document.getElementById('applyCompanyName').value,
+                    resume_url: document.getElementById('applyResumeUrl').value,
+                    cover_letter: document.getElementById('applyCoverLetter').value || null,
+                    status: 'pending'
+                };
+
+                const { data, error } = await supabase
+                    .from('internship_applications')
+                    .insert([formData]);
+
+                if (error) throw error;
+
+                alert('✅ Application submitted successfully! The company will review your application and contact you if they are interested.');
+                closeApplyModal();
+            } catch (error) {
+                console.error('Error submitting application:', error);
+                alert('❌ Error submitting application: ' + error.message);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
 
         // Allow search on Enter key
         document.getElementById('searchInput').addEventListener('keypress', function (e) {
@@ -376,11 +849,12 @@
             }
         });
 
-        // Initialize stipend value on page load
-        updateStipendValue();
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            updateStipendValue();
+            checkUserAuth();
+        });
     </script>
-
-    <script src="app.js"></script>
 </body>
 
 </html>
