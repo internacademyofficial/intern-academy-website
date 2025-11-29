@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email | Intern Academy</title>
+    <meta name="description" content="Verify your email address for Intern Academy">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> Intern<span>Academy</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="internships.html" class="nav-link">Internships</a>
+                <a href="courses.html" class="nav-link">Courses</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-links">
+                <a href="login.html" class="btn btn-secondary">Log In</a>
+                <a href="register-student.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container" style="max-width: 600px;">
+            <div class="card">
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+                                margin: 0 auto 2rem; color: white; font-size: 3rem;">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+
+                    <h1 style="margin-bottom: 1rem;">Check Your Email! 📧</h1>
+
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                        We've sent a verification email to:<br>
+                        <strong id="emailDisplay" style="color: var(--accent); font-size: 1.2rem;"></strong>
+                    </p>
+
+                    <div style="background: #f8f9fa; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem;">
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            <i class="fas fa-info-circle" style="color: var(--accent);"></i>
+                            <strong>Next Steps:</strong>
+                        </p>
+                        <ol
+                            style="text-align: left; color: var(--text-secondary); padding-left: 1.5rem; line-height: 1.8;">
+                            <li>Open your email inbox</li>
+                            <li>Look for an email from Intern Academy</li>
+                            <li>Click the verification link in the email</li>
+                            <li>Return here and click "Go to Login" below</li>
+                        </ol>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <button onclick="resendVerification()" class="btn btn-outline" style="margin-right: 1rem;">
+                            <i class="fas fa-redo"></i> Resend Email
+                        </button>
+                        <a href="login.html" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Go to Login
+                        </a>
+                    </div>
+
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Didn't receive the email? Check your spam folder or
+                        <button onclick="resendVerification()"
+                            style="background: none; border: none; color: var(--accent); text-decoration: underline; cursor: pointer; font-size: 0.9rem;">
+                            request a new one
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Intern Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+
+    <script>
+        let userEmail = '';
+
+        // Get email from URL parameter or localStorage
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            userEmail = urlParams.get('email') || localStorage.getItem('registrationEmail') || '';
+
+            if (userEmail) {
+                document.getElementById('emailDisplay').textContent = userEmail;
+                localStorage.setItem('registrationEmail', userEmail);
+            } else {
+                document.getElementById('emailDisplay').textContent = 'your registered email';
+            }
+        });
+
+        async function resendVerification() {
+            if (!userEmail) {
+                userEmail = prompt('Please enter your email address:');
+                if (!userEmail) return;
+            }
+
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            try {
+                const { data, error } = await supabase.auth.resend({
+                    type: 'signup',
+                    email: userEmail
+                });
+
+                if (error) throw error;
+
+                alert('✅ Verification Email Sent!\n\nPlease check your inbox (' + userEmail + ').');
+
+            } catch (error) {
+                console.error('Resend error:', error);
+                alert('❌ Error\n\n' + (error.message || 'Could not resend email. Please try again later.'));
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -34,7 +34,7 @@ if (!initializeSupabase()) {
 // Form submission handlers
 
 /**
- * Handle Student Registration Form Submission
+ * Handle Student Registration Form Submission with Authentication
  */
 async function handleStudentRegistration(event) {
     event.preventDefault();
@@ -46,37 +46,74 @@ async function handleStudentRegistration(event) {
         return;
     }
 
+    // Get form values
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const phone = document.getElementById('phone').value.trim();
+    const collegeName = document.getElementById('collegeName').value.trim();
+    const graduationYear = parseInt(document.getElementById('graduationYear').value);
+    const fieldOfStudy = document.getElementById('fieldOfStudy').value.trim();
+    const skills = document.getElementById('skills').value.trim();
+    const interests = document.getElementById('interests').value.trim();
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
+        alert('❌ Passwords do not match!\n\nPlease make sure both password fields are the same.');
+        return;
+    }
+
     // Show loading state
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Submitting...';
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
     submitBtn.disabled = true;
 
-    const formData = {
-        full_name: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone').value.trim(),
-        college_name: document.getElementById('collegeName').value.trim(),
-        graduation_year: parseInt(document.getElementById('graduationYear').value),
-        field_of_study: document.getElementById('fieldOfStudy').value.trim(),
-        skills: document.getElementById('skills').value.trim(),
-        interests: document.getElementById('interests').value.trim()
-    };
-
     try {
-        const { data, error } = await supabase
+        // Step 1: Sign up user with Supabase Auth
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    full_name: fullName,
+                    phone: phone
+                },
+                emailRedirectTo: `${window.location.origin}/dashboard.html`
+            }
+        });
+
+        if (authError) throw authError;
+
+        // Step 2: Save additional profile data to student_registrations table
+        const { data: profileData, error: profileError } = await supabase
             .from('student_registrations')
-            .insert([formData])
+            .insert([{
+                user_id: authData.user.id,
+                full_name: fullName,
+                email: email,
+                phone: phone,
+                college_name: collegeName,
+                graduation_year: graduationYear,
+                field_of_study: fieldOfStudy,
+                skills: skills,
+                interests: interests
+            }])
             .select();
 
-        if (error) throw error;
+        if (profileError) throw profileError;
 
-        // Success
-        alert('🎉 Registration successful! Welcome to Intern Academy!\n\nWe\'ll send you a confirmation email shortly.');
+        // Success!
+        alert('🎉 Registration Successful!\n\n✉️ Please check your email to verify your account.\n\nWe\'ve sent a verification link to: ' + email + '\n\nAfter verifying, you can log in to your dashboard.');
+
+        // Reset form
         event.target.reset();
 
-        // Optional: Redirect to success page
-        // window.location.href = 'registration-success.html';
+        // Redirect to verification page
+        setTimeout(() => {
+            window.location.href = 'verify-email.html?email=' + encodeURIComponent(email);
+        }, 2000);
 
     } catch (error) {
         // Detailed error logging for debugging
@@ -91,7 +128,11 @@ async function handleStudentRegistration(event) {
         console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
         // User-friendly error messages
-        if (error.code === '23505') {
+        if (error.message && error.message.toLowerCase().includes('already registered')) {
+            alert('❌ This email is already registered.\n\nPlease login or use the "Forgot Password" option.');
+        } else if (error.message && error.message.toLowerCase().includes('password')) {
+            alert('❌ Password Error\n\nPassword must be at least 6 characters long.');
+        } else if (error.code === '23505') {
             alert('❌ This email is already registered.\n\nPlease use a different email or login to your existing account.');
         } else if (error.message && error.message.toLowerCase().includes('cors')) {
             alert('❌ Connection Error (CORS)\n\nThe website domain needs to be configured in the database.\nPlease contact the administrator at contact@internacademy.co.in');
