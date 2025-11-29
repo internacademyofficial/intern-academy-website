@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test | Intern Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .test-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ccc;
+        }
+
+        .test-item.success {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+
+        .test-item.error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .test-item.warning {
+            border-left-color: #ffc107;
+            background: #fff3cd;
+        }
+
+        .test-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .test-result {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #555;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .status-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 Supabase Connection Test</h1>
+        <p class="subtitle">Diagnosing your Intern Academy database connection</p>
+
+        <div id="tests"></div>
+
+        <button class="btn" onclick="runTests()">Run Tests</button>
+        <button class="btn" onclick="testInsert()"
+            style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">Test Insert (Student
+            Registration)</button>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <script>
+        const testsContainer = document.getElementById('tests');
+
+        function addTest(name, status, result) {
+            const div = document.createElement('div');
+            div.className = `test-item ${status}`;
+
+            const icon = status === 'success' ? '✅' : status === 'error' ? '❌' : '⚠️';
+
+            div.innerHTML = `
+                <div class="test-name"><span class="status-icon">${icon}</span>${name}</div>
+                <div class="test-result">${result}</div>
+            `;
+
+            testsContainer.appendChild(div);
+        }
+
+        function clearTests() {
+            testsContainer.innerHTML = '';
+        }
+
+        async function runTests() {
+            clearTests();
+
+            // Test 1: Check if Supabase library is loaded
+            if (typeof window.supabase !== 'undefined') {
+                addTest('Supabase Library Loaded', 'success', 'The Supabase JavaScript library is loaded successfully.');
+            } else {
+                addTest('Supabase Library Loaded', 'error', 'The Supabase library is NOT loaded. Check your internet connection.');
+                return;
+            }
+
+            // Test 2: Check if client is initialized
+            if (supabase) {
+                addTest('Supabase Client Initialized', 'success', 'The Supabase client is initialized.');
+            } else {
+                addTest('Supabase Client Initialized', 'error', 'The Supabase client failed to initialize.');
+                return;
+            }
+
+            // Test 3: Display configuration
+            addTest('Configuration', 'success', `URL: ${SUPABASE_URL}\nAPI Key: ${SUPABASE_ANON_KEY.substring(0, 50)}...`);
+
+            // Test 4: Test basic connectivity
+            try {
+                const { data, error } = await supabase
+                    .from('student_registrations')
+                    .select('count', { count: 'exact', head: true });
+
+                if (error) throw error;
+
+                addTest('Database Connection', 'success', 'Successfully connected to Supabase database!');
+            } catch (error) {
+                let errorMsg = `Code: ${error.code}\nMessage: ${error.message}`;
+
+                if (error.message && error.message.toLowerCase().includes('cors')) {
+                    errorMsg += '\n\n🔧 FIX: Add your domain to Supabase CORS settings\nGo to: Authentication → URL Configuration';
+                } else if (error.code === '42P01') {
+                    errorMsg += '\n\n🔧 FIX: Run the supabase-schema.sql in SQL Editor';
+                } else if (error.code === '42501') {
+                    errorMsg += '\n\n🔧 FIX: Check Row Level Security policies';
+                }
+
+                addTest('Database Connection', 'error', errorMsg);
+            }
+
+            // Test 5: Check current domain
+            const currentDomain = window.location.hostname;
+            const isLocalhost = currentDomain === 'localhost' || currentDomain === '127.0.0.1';
+
+            if (isLocalhost) {
+                addTest('Domain Check', 'warning', `Running on: ${window.location.origin}\n\nThis is localhost. CORS issues typically occur on production domains.`);
+            } else {
+                addTest('Domain Check', 'success', `Running on: ${window.location.origin}\n\nMake sure this domain is added to Supabase URL Configuration.`);
+            }
+
+            // Test 6: Check table structure
+            try {
+                const { data, error } = await supabase
+                    .from('student_registrations')
+                    .select('*')
+                    .limit(1);
+
+                if (error) throw error;
+
+                addTest('Table Structure', 'success', 'The student_registrations table exists and is accessible.');
+            } catch (error) {
+                addTest('Table Structure', 'error', `Cannot access table: ${error.message}`);
+            }
+        }
+
+        async function testInsert() {
+            if (!supabase) {
+                alert('❌ Supabase client is not initialized. Please run tests first.');
+                return;
+            }
+
+            clearTests();
+            addTest('Test Insert Starting', 'warning', 'Attempting to insert test data...');
+
+            const testData = {
+                full_name: 'Test Student ' + Date.now(),
+                email: `test${Date.now()}@example.com`,
+                phone: '9876543210',
+                college_name: 'Test University',
+                graduation_year: 2025,
+                field_of_study: 'Computer Science',
+                skills: 'JavaScript, React',
+                interests: 'Web Development'
+            };
+
+            try {
+                const { data, error } = await supabase
+                    .from('student_registrations')
+                    .insert([testData])
+                    .select();
+
+                if (error) throw error;
+
+                addTest('Test Insert Successful', 'success',
+                    `✅ Registration works perfectly!\n\nInserted data:\n${JSON.stringify(data, null, 2)}\n\n🎉 Your Supabase integration is working correctly!`
+                );
+
+                alert('🎉 SUCCESS! The database is working correctly!\n\nYou can now use the registration form on your live website.');
+
+            } catch (error) {
+                console.error('Test Insert Error:', error);
+
+                let errorMsg = `❌ Insert Failed\n\nCode: ${error.code}\nMessage: ${error.message}`;
+
+                if (error.message && error.message.toLowerCase().includes('cors')) {
+                    errorMsg += '\n\n🔧 HOW TO FIX:\n1. Go to Supabase Dashboard\n2. Click Authentication → URL Configuration\n3. Add your domain: ' + window.location.origin;
+                } else if (error.code === '42P01') {
+                    errorMsg += '\n\n🔧 HOW TO FIX:\n1. Go to Supabase Dashboard\n2. Open SQL Editor\n3. Run the supabase-schema.sql file';
+                } else if (error.code === '42501') {
+                    errorMsg += '\n\n🔧 HOW TO FIX:\n1. Check Row Level Security policies\n2. Make sure anon users can INSERT';
+                }
+
+                addTest('Test Insert Failed', 'error', errorMsg);
+            }
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(runTests, 500);
+        });
+    </script>
+</body>
+
+</html>

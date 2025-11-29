@@ -79,12 +79,30 @@ async function handleStudentRegistration(event) {
         // window.location.href = 'registration-success.html';
 
     } catch (error) {
-        console.error('Error:', error);
+        // Detailed error logging for debugging
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.error('❌ STUDENT REGISTRATION ERROR');
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.error('Full Error:', error);
+        console.error('Error Code:', error.code);
+        console.error('Error Message:', error.message);
+        console.error('Error Details:', error.details);
+        console.error('Error Hint:', error.hint);
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
+        // User-friendly error messages
         if (error.code === '23505') {
-            alert('❌ This email is already registered. Please use a different email or login.');
+            alert('❌ This email is already registered.\n\nPlease use a different email or login to your existing account.');
+        } else if (error.message && error.message.toLowerCase().includes('cors')) {
+            alert('❌ Connection Error (CORS)\n\nThe website domain needs to be configured in the database.\nPlease contact the administrator at contact@internacademy.co.in');
+        } else if (error.code === '42P01') {
+            alert('❌ Database Configuration Error\n\nThe registration system is not fully set up.\nPlease contact support at contact@internacademy.co.in');
+        } else if (error.code === '42501') {
+            alert('❌ Permission Error\n\nDatabase access is restricted.\nPlease contact support at contact@internacademy.co.in');
+        } else if (error.message && error.message.toLowerCase().includes('fetch')) {
+            alert('❌ Network Error\n\nCould not connect to the database.\nPlease check your internet connection and try again.');
         } else {
-            alert('❌ Registration failed. Please try again or contact support.');
+            alert(`❌ Registration failed. Please try again or contact support.\n\nError Code: ${error.code || 'NETWORK_ERROR'}\nError: ${error.message || 'Unknown error'}\n\nContact: contact@internacademy.co.in`);
         }
     } finally {
         submitBtn.textContent = originalText;
