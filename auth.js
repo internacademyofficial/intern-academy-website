@@ -208,25 +208,89 @@ function onAuthStateChange(callback) {
 }
 
 /**
+ * Update company profile in company_registrations table
+ */
+async function updateCompanyProfile(userId, companyData) {
+    try {
+        const { data, error } = await supabase
+            .from('company_registrations')
+            .upsert({
+                user_id: userId,
+                ...companyData,
+                updated_at: new Date().toISOString()
+            })
+            .select()
+            .single();
+
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Company profile update error:', error);
+        return { success: false, error };
+    }
+}
+
+/**
+ * Get company profile from company_registrations
+ */
+async function getCompanyProfile(userId) {
+    try {
+        const { data, error } = await supabase
+            .from('company_registrations')
+            .select('*')
+            .eq('user_id', userId)
+            .single();
+
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Get company profile error:', error);
+        return { success: false, error };
+    }
+}
+
+/**
+ * Change password for logged-in user
+ */
+async function changeUserPassword(newPassword) {
+    try {
+        const { data, error } = await supabase.auth.updateUser({
+            password: newPassword
+        });
+
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Password change error:', error);
+        return { success: false, error };
+    }
+}
+
+/**
  * Display user info in navbar (if logged in)
  */
 async function updateNavbarAuth() {
     const session = await checkAuth();
-    const navLinks = document.querySelector('.nav-links:last-child');
+    const authContainer = document.querySelector('.auth-buttons') || document.querySelector('.nav-links:last-child');
 
-    if (!navLinks) return;
+    if (!authContainer) return;
 
     if (session && session.user) {
         const userEmail = session.user.email;
         const userName = session.user.user_metadata?.full_name || userEmail.split('@')[0];
 
-        navLinks.innerHTML = `
+        authContainer.innerHTML = `
             <a href="dashboard.html" class="btn btn-secondary">
                 <i class="fas fa-user"></i> ${userName}
             </a>
             <button onclick="signOutUser()" class="btn btn-primary" style="background: #dc3545;">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
+        `;
+    } else {
+        authContainer.innerHTML = `
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="register-student.html" class="btn btn-primary">Get Started</a>
         `;
     }
 }

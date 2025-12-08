@@ -1,0 +1,189 @@
+/* Add these premium utility classes at the end of your style.css */
+
+/* Premium Section - Gold & Navy Combo */
+.section-premium {
+    background: linear-gradient(135deg, #003A70 0%, #004A8F 100%);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.section-premium h2,
+.section-premium h3,
+.section-premium p {
+    color: var(--white);
+}
+
+/* Gold Accent Text */
+.text-gold {
+    color: var(--royal-gold);
+    font-weight: 700;
+}
+
+/* Premium Stats Box */
+.stats-box {
+    background: var(--white);
+    border: 2px solid var(--platinum-silver);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stats-box:hover {
+    border-color: var(--royal-gold);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+    transform: translateY(-5px);
+}
+
+.stats-box .number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stats-box .label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Award Badge */
+.badge-award {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--royal-gold) 0%, #C9A332 100%);
+    color: var(--white);
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.badge-award i {
+    color: var(--white);
+}
+
+/* Certificate Style Box */
+.certificate-box {
+    background: var(--white);
+    border: 3px solid var(--royal-gold);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+}
+
+.certificate-box::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid var(--platinum-silver);
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+}
+
+/* Premium Divider */
+.divider-premium {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--platinum-silver) 50%, transparent 100%);
+    margin: 3rem 0;
+}
+
+.divider-gold {
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--royal-gold) 50%, transparent 100%);
+    margin: 3rem 0;
+}
+
+/* Gold Icon */
+.icon-gold {
+    color: var(--royal-gold);
+}
+
+/* Premium Card with Gold Accent */
+.card-premium {
+    border-top: 4px solid var(--royal-gold);
+}
+
+.card-premium:hover {
+    border-top-color: var(--royal-gold);
+    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.15);
+}
+
+/* Silver Separator Line */
+.separator-silver {
+    width: 100%;
+    height: 1px;
+    background: var(--platinum-silver);
+    margin: 2rem 0;
+}
+
+/* Premium Input Fields */
+.form-control-premium {
+    border: 2px solid var(--platinum-silver);
+}
+
+.form-control-premium:focus {
+    border-color: var(--royal-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Top Achievers Section */
+.achievers-card {
+    background: linear-gradient(135deg, #003A70 0%, #004A8F 100%);
+    color: var(--white);
+    border: 2px solid var(--royal-gold);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievers-card::after {
+    content: '🏆';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+/* Premium Programs Banner */
+.premium-banner {
+    background: var(--light-gold-tint);
+    border-left: 4px solid var(--royal-gold);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin: 2rem 0;
+}
+
+.premium-banner h4 {
+    color: var(--deep-navy);
+    margin-bottom: 0.5rem;
+}
+
+.premium-banner p {
+    color: var(--text-light);
+    margin: 0;
+}

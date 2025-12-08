@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Preview - InternAcademy</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f3f4f6;
+        }
+
+        .switch-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .switch-bar h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .switch-buttons {
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .switch-btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .switch-btn.active {
+            background: white;
+            color: #6366f1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .switch-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .frame-container {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: calc(100vh - 150px);
+            border: 4px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-banner {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-banner h3 {
+            margin: 0 0 0.5rem 0;
+            color: #6366f1;
+        }
+
+        .info-banner p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .approve-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: none;
+        }
+
+        .approve-container.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .approve-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s;
+        }
+
+        .approve-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="switch-bar">
+        <h2>🎨 Design Preview</h2>
+        <div class="switch-buttons">
+            <button class="switch-btn active" onclick="switchDesign('original')">Original Design</button>
+            <button class="switch-btn" onclick="switchDesign('enhanced')">✨ Enhanced Design</button>
+        </div>
+    </div>
+
+    <div class="frame-container">
+        <div class="info-banner">
+            <h3 id="design-title">📋 Current: Original Design</h3>
+            <p id="design-description">This is your current website design. Click "Enhanced Design" to preview the new
+                modern version!</p>
+        </div>
+
+        <iframe id="preview-frame" src="index.html"></iframe>
+    </div>
+
+    <div class="approve-container" id="approve-box">
+        <p style="margin: 0 0 1rem 0; font-weight: 600; color: #1f2937;">Love the enhanced design?</p>
+        <button class="approve-btn" onclick="approveDesign()">✓ Apply This Design</button>
+    </div>
+
+    <script>
+        let currentDesign = 'original';
+        const indexPath = 'index.html';
+        const indexEnhancedPath = 'index-enhanced.html';
+
+        function switchDesign(design) {
+            currentDesign = design;
+            const buttons = document.querySelectorAll('.switch-btn');
+            const frame = document.getElementById('preview-frame');
+            const title = document.getElementById('design-title');
+            const description = document.getElementById('design-description');
+            const approveBox = document.getElementById('approve-box');
+
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (design === 'original') {
+                frame.src = indexPath + '?t=' + Date.now();
+                title.textContent = '📋 Current: Original Design';
+                description.textContent = 'This is your current website design. Click "Enhanced Design" to preview the new modern version!';
+                approveBox.classList.remove('show');
+            } else {
+                frame.src = indexEnhancedPath + '?t=' + Date.now();
+                title.textContent = '✨ Preview: Enhanced Design';
+                description.textContent = 'This is the new modern design with gradients, animations, and premium styling. If you like it, click "Apply This Design" below!';
+                approveBox.classList.add('show');
+            }
+        }
+
+        function approveDesign() {
+            if (confirm('Apply the enhanced design permanently? This will update style.css.')) {
+                // Show success message
+                alert('✓ Design approved! Please tell me "apply the enhanced design" to make it permanent.');
+            }
+        }
+    </script>
+</body>
+
+</html>

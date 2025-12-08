@@ -55,45 +55,197 @@
 
             <!-- Profile Information -->
             <div class="card" style="margin-bottom: 2rem;">
-                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-user-circle" style="color: var(--accent);"></i> Profile Information
-                </h2>
-
-                <div id="profileInfo" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                    <!-- Profile data will be loaded here -->
-                    </ div>
-
-                    <div id="loadingProfile" style="text-align: center; padding: 2rem;">
-                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent);"></i>
-                        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your profile...</p>
-                    </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-user-circle" style="color: var(--accent);"></i> Profile Information
+                    </h2>
+                    <button id="editBtn" onclick="toggleEditMode()" class="btn btn-outline">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
                 </div>
 
-                <!-- Quick Actions -->
-                <div class="card">
-                    <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-bolt" style="color: var(--accent);"></i> Quick Actions
-                    </h2>
+                <!-- Profile View Mode -->
+                <div id="profileView" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <!-- Profile data will be loaded here -->
+                </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                        <a href="internships.html" class="btn btn-primary" style="padding: 1.5rem; text-align: center;">
-                            <i class="fas fa-briefcase"
-                                style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;"></i>
-                            Browse Internships
-                        </a>
-                        <a href="courses.html" class="btn btn-secondary" style="padding: 1.5rem; text-align: center;">
-                            <i class="fas fa-book"
-                                style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;"></i>
-                            View Courses
-                        </a>
-                        <a href="contact.html" class="btn btn-outline" style="padding: 1.5rem; text-align: center;">
-                            <i class="fas fa-envelope"
-                                style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;"></i>
-                            Contact Support
-                        </a>
+                <!-- Profile Edit Mode -->
+                <form id="profileEditForm" style="display: none;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" id="edit_full_name" class="form-control" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Phone</label>
+                            <input type="tel" id="edit_phone" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">Degree *</label>
+                            <select id="edit_degree" class="form-control" required>
+                                <option value="">Select Degree</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="B.E.">B.E.</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="BBA">BBA</option>
+                                <option value="BCA">BCA</option>
+                                <option value="M.Tech">M.Tech</option>
+                                <option value="MBA">MBA</option>
+                                <option value="M.Sc">M.Sc</option>
+                                <option value="B.Com">B.Com</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Major/Specialization</label>
+                            <input type="text" id="edit_major" class="form-control"
+                                placeholder="e.g., Computer Science">
+                        </div>
+                        <div>
+                            <label class="form-label">University/College</label>
+                            <input type="text" id="edit_university" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">Current Year</label>
+                            <select id="edit_current_year" class="form-control">
+                                <option value="">Select Year</option>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year">2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                                <option value="4th Year">4th Year</option>
+                                <option value="Final Year">Final Year</option>
+                                <option value="Graduated">Graduated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Degree Start Date</label>
+                            <input type="date" id="edit_degree_start_date" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">Expected Graduation Date</label>
+                            <input type="date" id="edit_degree_end_date" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">Graduation Year</label>
+                            <input type="number" id="edit_graduation_year" class="form-control" min="2020" max="2030">
+                        </div>
+                        <div>
+                            <label class="form-label">GPA/CGPA (out of 10)</label>
+                            <input type="number" id="edit_gpa" class="form-control" min="0" max="10" step="0.01">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label class="form-label">Skills (comma-separated)</label>
+                            <input type="text" id="edit_skills" class="form-control"
+                                placeholder="Python, JavaScript, React, etc.">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label class="form-label">Previous Internships</label>
+                            <textarea id="edit_previous_internships" class="form-control" rows="3"
+                                placeholder="Describe any previous internship experience"></textarea>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label class="form-label">Bio/Summary</label>
+                            <textarea id="edit_bio" class="form-control" rows="3"
+                                placeholder="Tell us about yourself"></textarea>
+                        </div>
+                        <div>
+                            <label class="form-label">LinkedIn Profile</label>
+                            <input type="url" id="edit_linkedin_url" class="form-control"
+                                placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+                        <div>
+                            <label class="form-label">GitHub Profile</label>
+                            <input type="url" id="edit_github_url" class="form-control"
+                                placeholder="https://github.com/yourusername">
+                        </div>
                     </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: flex-end;">
+                        <button type="button" onclick="cancelEdit()" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+
+                <div id="loadingProfile" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent);"></i>
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your profile...</p>
+                </div>
+
+                <div id="profileMessage" style="display: none; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
                 </div>
             </div>
+
+            <!-- Password Change Section -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-lock" style="color: var(--accent);"></i> Change Password
+                </h2>
+
+                <form id="passwordChangeForm" onsubmit="handlePasswordChange(event)">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 500px;">
+                        <div>
+                            <label class="form-label">New Password *</label>
+                            <input type="password" id="new_password" class="form-control" required minlength="6"
+                                placeholder="Enter new password">
+                            <small style="color: var(--text-secondary);">Minimum 6 characters</small>
+                        </div>
+                        <div>
+                            <label class="form-label">Confirm New Password *</label>
+                            <input type="password" id="confirm_password" class="form-control" required
+                                placeholder="Confirm new password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-key"></i> Update Password
+                        </button>
+                    </div>
+                </form>
+
+                <div id="passwordMessage"
+                    style="display: none; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;"></div>
+            </div>
+
+            <!-- My Applications -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-briefcase" style="color: var(--accent);"></i> My Applications
+                </h2>
+
+                <div id="applicationsList" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Applications will be loaded here -->
+                </div>
+
+                <div id="loadingApplications" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent);"></i>
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your applications...</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-bolt" style="color: var(--accent);"></i> Quick Actions
+                </h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <a href="internships.html" class="btn btn-primary" style="padding: 1.5rem; text-align: center;">
+                        <i class="fas fa-briefcase"
+                            style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;"></i>
+                        Browse Internships
+                    </a>
+                    <a href="courses.html" class="btn btn-secondary" style="padding: 1.5rem; text-align: center;">
+                        <i class="fas fa-book" style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;"></i>
+                        View Courses
+                    </a>
+                    <a href="contact.html" class="btn btn-outline" style="padding: 1.5rem; text-align: center;">
+                        <i class="fas fa-envelope"
+                            style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;"></i>
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer>
@@ -112,6 +264,7 @@
     <script>
         let currentUser = null;
         let userProfile = null;
+        let isEditMode = false;
 
         async function loadDashboard() {
             try {
@@ -142,52 +295,252 @@
                             Could not load profile data
                         </p>
                     `;
-                    return;
+                } else {
+                    userProfile = profile;
+                    renderProfileView(profile);
                 }
 
-                userProfile = profile;
-
-                // Display profile information
-                document.getElementById('loadingProfile').style.display = 'none';
-                document.getElementById('profileInfo').innerHTML = `
-                    <div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Full Name</p>
-                        <p style="font-weight: 600;">${profile.full_name || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Email</p>
-                        <p style="font-weight: 600;">${profile.email || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Phone</p>
-                        <p style="font-weight: 600;">${profile.phone || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">College</p>
-                        <p style="font-weight: 600;">${profile.college_name || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Graduation Year</p>
-                        <p style="font-weight: 600;">${profile.graduation_year || 'N/A'}</p>
-                    </div>
-                    <div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Field of Study</p>
-                        <p style="font-weight: 600;">${profile.field_of_study || 'N/A'}</p>
-                    </div>
-                    <div style="grid-column: 1 / -1;">
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Skills</p>
-                        <p style="font-weight: 600;">${profile.skills || 'N/A'}</p>
-                    </div>
-                    <div style="grid-column: 1 / -1;">
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.25rem;">Areas of Interest</p>
-                        <p style="font-weight: 600;">${profile.interests || 'N/A'}</p>
-                    </div>
-                `;
+                // Load applications
+                loadApplications();
 
             } catch (error) {
                 console.error('Dashboard error:', error);
-                alert('Error loading dashboard. Please try logging in again.');
-                window.location.href = 'login.html';
+                // alert('Error loading dashboard. Please try logging in again.');
+            }
+        }
+
+        function renderProfileView(profile) {
+            document.getElementById('loadingProfile').style.display = 'none';
+            document.getElementById('profileInfo').style.display = 'grid'; // Ensure grid layout
+            document.getElementById('profileView').innerHTML = `
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Full Name</label>
+                    <p style="font-weight: 600;">${profile.full_name || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Email</label>
+                    <p style="font-weight: 600;">${profile.email || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Phone</label>
+                    <p style="font-weight: 600;">${profile.phone || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Degree</label>
+                    <p style="font-weight: 600;">${profile.degree || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Major</label>
+                    <p style="font-weight: 600;">${profile.major || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">University</label>
+                    <p style="font-weight: 600;">${profile.university || profile.college_name || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Current Year</label>
+                    <p style="font-weight: 600;">${profile.current_year || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Graduation Year</label>
+                    <p style="font-weight: 600;">${profile.graduation_year || 'N/A'}</p>
+                </div>
+                <div>
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">GPA</label>
+                    <p style="font-weight: 600;">${profile.gpa || 'N/A'}</p>
+                </div>
+                <div style="grid-column: 1 / -1;">
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Skills</label>
+                    <p style="font-weight: 600;">${profile.skills || 'N/A'}</p>
+                </div>
+                <div style="grid-column: 1 / -1;">
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Previous Internships</label>
+                    <p style="font-weight: 600; white-space: pre-wrap;">${profile.previous_internships || 'None listed'}</p>
+                </div>
+                <div style="grid-column: 1 / -1;">
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Bio</label>
+                    <p style="font-weight: 600; white-space: pre-wrap;">${profile.bio || 'No bio added'}</p>
+                </div>
+            `;
+        }
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const viewDiv = document.getElementById('profileView');
+            const editForm = document.getElementById('profileEditForm');
+            const editBtn = document.getElementById('editBtn');
+
+            if (isEditMode) {
+                viewDiv.style.display = 'none';
+                editForm.style.display = 'block';
+                editBtn.style.display = 'none';
+                populateEditForm();
+            } else {
+                viewDiv.style.display = 'grid';
+                editForm.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+            }
+        }
+
+        function cancelEdit() {
+            isEditMode = false;
+            document.getElementById('profileView').style.display = 'grid';
+            document.getElementById('profileEditForm').style.display = 'none';
+            document.getElementById('editBtn').style.display = 'inline-block';
+        }
+
+        function populateEditForm() {
+            if (!userProfile) return;
+            document.getElementById('edit_full_name').value = userProfile.full_name || '';
+            document.getElementById('edit_phone').value = userProfile.phone || '';
+            document.getElementById('edit_degree').value = userProfile.degree || '';
+            document.getElementById('edit_major').value = userProfile.major || '';
+            document.getElementById('edit_university').value = userProfile.university || userProfile.college_name || '';
+            document.getElementById('edit_current_year').value = userProfile.current_year || '';
+            document.getElementById('edit_degree_start_date').value = userProfile.degree_start_date || '';
+            document.getElementById('edit_degree_end_date').value = userProfile.degree_end_date || '';
+            document.getElementById('edit_graduation_year').value = userProfile.graduation_year || '';
+            document.getElementById('edit_gpa').value = userProfile.gpa || '';
+            document.getElementById('edit_skills').value = userProfile.skills || '';
+            document.getElementById('edit_previous_internships').value = userProfile.previous_internships || '';
+            document.getElementById('edit_bio').value = userProfile.bio || '';
+            document.getElementById('edit_linkedin_url').value = userProfile.linkedin_url || '';
+            document.getElementById('edit_github_url').value = userProfile.github_url || '';
+        }
+
+        // Handle Profile Update
+        document.getElementById('profileEditForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            const profileData = {
+                full_name: document.getElementById('edit_full_name').value,
+                phone: document.getElementById('edit_phone').value,
+                degree: document.getElementById('edit_degree').value,
+                major: document.getElementById('edit_major').value,
+                university: document.getElementById('edit_university').value,
+                college_name: document.getElementById('edit_university').value, // Keep backward compatibility
+                current_year: document.getElementById('edit_current_year').value,
+                degree_start_date: document.getElementById('edit_degree_start_date').value || null,
+                degree_end_date: document.getElementById('edit_degree_end_date').value || null,
+                graduation_year: document.getElementById('edit_graduation_year').value || null,
+                gpa: document.getElementById('edit_gpa').value || null,
+                skills: document.getElementById('edit_skills').value,
+                previous_internships: document.getElementById('edit_previous_internships').value,
+                bio: document.getElementById('edit_bio').value,
+                linkedin_url: document.getElementById('edit_linkedin_url').value,
+                github_url: document.getElementById('edit_github_url').value
+            };
+
+            const result = await updateUserProfile(currentUser.id, profileData);
+
+            if (result.success) {
+                userProfile = { ...userProfile, ...profileData };
+                renderProfileView(userProfile);
+                cancelEdit();
+                showMessage('profileMessage', 'Profile updated successfully!', 'success');
+            } else {
+                showMessage('profileMessage', 'Error updating profile. Please try again.', 'error');
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+
+        // Handle Password Change
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (newPassword !== confirmPassword) {
+                showMessage('passwordMessage', 'Passwords do not match!', 'error');
+                return;
+            }
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            btn.disabled = true;
+
+            const result = await changeUserPassword(newPassword);
+
+            if (result.success) {
+                showMessage('passwordMessage', 'Password updated successfully!', 'success');
+                e.target.reset();
+            } else {
+                showMessage('passwordMessage', 'Error updating password: ' + (result.error.message || 'Unknown error'), 'error');
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+
+        function showMessage(elementId, text, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = text;
+            el.style.display = 'block';
+            el.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+            el.style.color = type === 'success' ? '#155724' : '#721c24';
+            setTimeout(() => { el.style.display = 'none'; }, 5000);
+        }
+
+        async function loadApplications() {
+            const { data: applications, error: appsError } = await supabase
+                .from('internship_applications')
+                .select('*')
+                .eq('user_id', currentUser.id)
+                .order('applied_at', { ascending: false });
+
+            if (appsError) {
+                console.error('Error loading applications:', appsError);
+                document.getElementById('loadingApplications').innerHTML = `
+                    <p style="color: #dc3545;">Could not load applications</p>`;
+            } else {
+                const appsContainer = document.getElementById('applicationsList');
+                document.getElementById('loadingApplications').style.display = 'none';
+
+                if (!applications || applications.length === 0) {
+                    appsContainer.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; background: var(--bg-secondary); border-radius: 1rem;">
+                            <i class="fas fa-folder-open" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                            <p style="color: var(--text-secondary);">You haven't applied to any internships yet.</p>
+                            <a href="internships.html" class="btn btn-primary" style="margin-top: 1rem;">Browse Internships</a>
+                        </div>
+                    `;
+                } else {
+                    appsContainer.innerHTML = applications.map(app => `
+                        <div style="padding: 1.5rem; background: var(--bg-secondary); border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem; font-size: 1.1rem;">${app.internship_title}</h3>
+                                <p style="color: var(--text-secondary); margin: 0;">
+                                    <i class="fas fa-building"></i> ${app.company_name}
+                                </p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; 
+                                    background: ${getStatusColor(app.status)}; color: white;">
+                                    ${app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                                </span>
+                                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">
+                                    Applied on ${new Date(app.applied_at).toLocaleDateString()}
+                                </p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function getStatusColor(status) {
+            switch (status.toLowerCase()) {
+                case 'accepted': return '#28a745';
+                case 'rejected': return '#dc3545';
+                case 'pending': return '#ffc107';
+                default: return '#6c757d';
             }
         }
 

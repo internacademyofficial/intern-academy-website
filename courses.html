@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> Intern<span>Academy</span></a>
+            <a href="index.html" class="logo"><img src="assets/logo-full.png" alt="Intern Academy - A Launchpad to Real-World Skills" style="height: 120px; width: auto;"></a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="internships.html" class="nav-link">Internships</a>
@@ -44,123 +44,151 @@
             <!-- Filters -->
             <div style="margin-bottom: 2rem; display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem;">
                 <button class="btn btn-primary filter-btn active" onclick="filterCourses('all')">All Courses</button>
-                <button class="btn btn-secondary filter-btn" onclick="filterCourses('development')">Web
-                    Development</button>
-                <button class="btn btn-secondary filter-btn" onclick="filterCourses('data-science')">Data
-                    Science</button>
-                <button class="btn btn-secondary filter-btn" onclick="filterCourses('design')">Design</button>
-                <button class="btn btn-secondary filter-btn" onclick="filterCourses('marketing')">Marketing</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('data')">Data & Analytics</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('cloud-devops')">Cloud &
+                    DevOps</button>
+                <button class="btn btn-secondary filter-btn" onclick="filterCourses('ai')">AI & ML</button>
             </div>
 
             <div class="grid-3" id="coursesGrid">
-                <!-- Course 1 - ReactJS -->
-                <div class="card course-item" data-category="development" style="padding: 0; overflow: hidden;">
+                <!-- Course 1 - Data Engineering -->
+                <div class="card course-item" data-category="data" style="padding: 0; overflow: hidden;">
                     <div
-                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <i class="fab fa-react fa-4x" style="color: #61DAFB;"></i>
+                        style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-database fa-4x" style="color: white;"></i>
                     </div>
                     <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DEVELOPMENT</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">ReactJS Masterclass</h3>
-                        <p style="font-size: 0.9rem;">Master modern React with Hooks, Redux, and Next.js.</p>
-                        <div
-                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 700;">₹2,499</span>
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DATA & ANALYTICS</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Data Engineering</h3>
+                        <p style="font-size: 0.9rem;">Build robust data pipelines with modern ETL tools and big data
+                            technologies.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
                             <a href="register-student.html" class="btn btn-sm btn-outline"
                                 style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Course 2 - Python -->
-                <div class="card course-item" data-category="data-science" style="padding: 0; overflow: hidden;">
+                <!-- Course 2 - Python Bootcamp -->
+                <div class="card course-item" data-category="data" style="padding: 0; overflow: hidden;">
                     <div
-                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <i class="fab fa-python fa-4x" style="color: #3776AB;"></i>
+                        style="height: 200px; background: linear-gradient(135deg, #3776AB 0%, #FFD43B 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-python fa-4x" style="color: white;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">PROGRAMMING</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Python Bootcamp</h3>
+                        <p style="font-size: 0.9rem;">Master Python from basics to advanced with hands-on projects and
+                            real-world applications.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 - SQL Bootcamp -->
+                <div class="card course-item" data-category="data" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: linear-gradient(135deg, #00758F 0%, #00A8E8 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-table fa-4x" style="color: white;"></i>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DATA & ANALYTICS</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">SQL Bootcamp</h3>
+                        <p style="font-size: 0.9rem;">Learn database management, complex queries, and optimization
+                            techniques.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
+                            <a href="register-student.html" class="btn btn-sm btn-outline"
+                                style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 4 - Data Science -->
+                <div class="card course-item" data-category="data" style="padding: 0; overflow: hidden;">
+                    <div
+                        style="height: 200px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-chart-line fa-4x" style="color: white;"></i>
                     </div>
                     <div style="padding: 1.5rem;">
                         <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DATA SCIENCE</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Python for Data Science</h3>
-                        <p style="font-size: 0.9rem;">Learn Python, Pandas, NumPy and Matplotlib from scratch.</p>
-                        <div
-                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 700;">₹3,999</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Data Science</h3>
+                        <p style="font-size: 0.9rem;">Learn statistics, machine learning, and data visualization with
+                            Python and R.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
                             <a href="register-student.html" class="btn btn-sm btn-outline"
                                 style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Course 3 - UI/UX -->
-                <div class="card course-item" data-category="design" style="padding: 0; overflow: hidden;">
+                <!-- Course 5 - Data Analytics -->
+                <div class="card course-item" data-category="data" style="padding: 0; overflow: hidden;">
                     <div
-                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-paint-brush fa-4x" style="color: #F24E1E;"></i>
+                        style="height: 200px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-chart-pie fa-4x" style="color: white;"></i>
                     </div>
                     <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DESIGN</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">UI/UX Design Bootcamp</h3>
-                        <p style="font-size: 0.9rem;">Become a professional UI/UX designer with Figma.</p>
-                        <div
-                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 700;">₹4,999</span>
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DATA & ANALYTICS</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Data Analytics</h3>
+                        <p style="font-size: 0.9rem;">Transform data into actionable insights using Excel, Tableau, and
+                            Power BI.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
                             <a href="register-student.html" class="btn btn-sm btn-outline"
                                 style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Course 4 - Node.js -->
-                <div class="card course-item" data-category="development" style="padding: 0; overflow: hidden;">
+                <!-- Course 6 - DevOps -->
+                <div class="card course-item" data-category="cloud-devops" style="padding: 0; overflow: hidden;">
                     <div
-                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <i class="fab fa-node fa-4x" style="color: #68a063;"></i>
+                        style="height: 200px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-cogs fa-4x" style="color: white;"></i>
                     </div>
                     <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">BACKEND</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Node.js Advanced</h3>
-                        <p style="font-size: 0.9rem;">Build scalable backend systems with Node.js and MongoDB.</p>
-                        <div
-                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 700;">₹3,499</span>
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">CLOUD & DEVOPS</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">DevOps</h3>
+                        <p style="font-size: 0.9rem;">Master CI/CD, Docker, Kubernetes, and infrastructure automation.
+                        </p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
                             <a href="register-student.html" class="btn btn-sm btn-outline"
                                 style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Course 5 - AWS -->
-                <div class="card course-item" data-category="development" style="padding: 0; overflow: hidden;">
+                <!-- Course 7 - Cloud Practitioner -->
+                <div class="card course-item" data-category="cloud-devops" style="padding: 0; overflow: hidden;">
                     <div
-                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <i class="fab fa-aws fa-4x" style="color: #FF9900;"></i>
+                        style="height: 200px; background: linear-gradient(135deg, #FF9900 0%, #FF6C00 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-cloud fa-4x" style="color: white;"></i>
                     </div>
                     <div style="padding: 1.5rem;">
                         <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">CLOUD</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">AWS Certified Practitioner</h3>
-                        <p style="font-size: 0.9rem;">Start your cloud journey with official AWS certification prep.</p>
-                        <div
-                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 700;">₹5,999</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Cloud Practitioner</h3>
+                        <p style="font-size: 0.9rem;">Get AWS certified and learn cloud computing fundamentals and
+                            services.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
                             <a href="register-student.html" class="btn btn-sm btn-outline"
                                 style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Course 6 - Marketing -->
-                <div class="card course-item" data-category="marketing" style="padding: 0; overflow: hidden;">
+                <!-- Course 8 - AI -->
+                <div class="card course-item" data-category="ai" style="padding: 0; overflow: hidden;">
                     <div
-                        style="height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-bullhorn fa-4x" style="color: #E60023;"></i>
+                        style="height: 200px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-brain fa-4x" style="color: #667eea;"></i>
                     </div>
                     <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">MARKETING</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Digital Marketing 101</h3>
-                        <p style="font-size: 0.9rem;">SEO, SEM, and Social Media Marketing strategies.</p>
-                        <div
-                            style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 700;">₹1,999</span>
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">AI & ML</span>
+                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Artificial Intelligence</h3>
+                        <p style="font-size: 0.9rem;">Explore AI, machine learning, neural networks, and deep learning
+                            applications.</p>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center;">
                             <a href="register-student.html" class="btn btn-sm btn-outline"
                                 style="padding: 0.5rem 1rem; font-size: 0.8rem;">Enroll</a>
                         </div>

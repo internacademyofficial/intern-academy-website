@@ -128,57 +128,172 @@
                 </div>
             </div>
 
+            <!-- Company Profile Section -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-building" style="color: var(--accent);"></i> Company Profile
+                    </h2>
+                    <button id="editCompanyBtn" onclick="toggleCompanyEditMode()" class="btn btn-outline"
+                        style="display: none;">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+
+                <div id="companyProfileView">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Company Name</label>
+                            <p id="view_company_name" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Industry</label>
+                            <p id="view_industry" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Contact Person</label>
+                            <p id="view_contact_person" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Email</label>
+                            <p id="view_email" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Phone</label>
+                            <p id="view_phone" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Website</label>
+                            <p id="view_website" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Description</label>
+                            <p id="view_description" style="font-weight: 600;">Loading...</p>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label style="color: var(--text-secondary); font-size: 0.9rem;">Address</label>
+                            <p id="view_address" style="font-weight: 600;">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="companyProfileEditForm" style="display: none;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <label class="form-label">Company Name *</label>
+                            <input type="text" id="edit_company_name" class="form-control" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Industry</label>
+                            <input type="text" id="edit_industry" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">Contact Person *</label>
+                            <input type="text" id="edit_contact_person" class="form-control" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Phone</label>
+                            <input type="tel" id="edit_phone" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">Website</label>
+                            <input type="url" id="edit_website" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label">City</label>
+                            <input type="text" id="edit_company_city" class="form-control">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label class="form-label">Address</label>
+                            <input type="text" id="edit_company_address" class="form-control">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label class="form-label">Description</label>
+                            <textarea id="edit_description" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: flex-end;">
+                        <button type="button" onclick="cancelCompanyEdit()" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+
+                <div id="companyMessage" style="display: none; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                </div>
+            </div>
+
+            <!-- Password Change Section -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-lock" style="color: var(--accent);"></i> Change Password
+                </h2>
+
+                <form id="passwordChangeForm" onsubmit="handlePasswordChange(event)">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 500px;">
+                        <div>
+                            <label class="form-label">New Password *</label>
+                            <input type="password" id="new_password" class="form-control" required minlength="6">
+                        </div>
+                        <div>
+                            <label class="form-label">Confirm New Password *</label>
+                            <input type="password" id="confirm_password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </div>
+                </form>
+                <div id="passwordMessage"
+                    style="display: none; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;"></div>
+            </div>
+
             <!-- Stats Cards -->
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-envelope fa-2x" style="color: var(--accent); margin-bottom: 0.5rem;"></i>
-                    <h3 id="totalApplications">0</h3>
-                    <p style="color: var(--text-secondary); margin: 0;">Total Applications</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-clock fa-2x" style="color: #ffc107; margin-bottom: 0.5rem;"></i>
-                    <h3 id="pendingApplications">0</h3>
-                    <p style="color: var(--text-secondary); margin: 0;">Pending Review</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-check-circle fa-2x" style="color: #28a745; margin-bottom: 0.5rem;"></i>
-                    <h3 id="acceptedApplications">0</h3>
-                    <p style="color: var(--text-secondary); margin: 0;">Accepted</p>
-                </div>
+                <i class="fas fa-envelope fa-2x" style="color: var(--accent); margin-bottom: 0.5rem;"></i>
+                <h3 id="totalApplications">0</h3>
+                <p style="color: var(--text-secondary); margin: 0;">Total Applications</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-clock fa-2x" style="color: #ffc107; margin-bottom: 0.5rem;"></i>
+                <h3 id="pendingApplications">0</h3>
+                <p style="color: var(--text-secondary); margin: 0;">Pending Review</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-check-circle fa-2x" style="color: #28a745; margin-bottom: 0.5rem;"></i>
+                <h3 id="acceptedApplications">0</h3>
+                <p style="color: var(--text-secondary); margin: 0;">Accepted</p>
+            </div>
+        </div>
+
+        <!-- Applications List -->
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-users" style="color: var(--accent);"></i> Internship Applications
+            </h2>
+
+            <!-- Filter Tabs -->
+            <div class="tabs">
+                <button class="tab active" onclick="filterByStatus('all')">All Applications</button>
+                <button class="tab" onclick="filterByStatus('pending')">Pending</button>
+                <button class="tab" onclick="filterByStatus('reviewed')">Reviewed</button>
+                <button class="tab" onclick="filterByStatus('accepted')">Accepted</button>
+                <button class="tab" onclick="filterByStatus('rejected')">Rejected</button>
             </div>
 
-            <!-- Applications List -->
-            <div class="card">
-                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-users" style="color: var(--accent);"></i> Internship Applications
-                </h2>
-
-                <!-- Filter Tabs -->
-                <div class="tabs">
-                    <button class="tab active" onclick="filterByStatus('all')">All Applications</button>
-                    <button class="tab" onclick="filterByStatus('pending')">Pending</button>
-                    <button class="tab" onclick="filterByStatus('reviewed')">Reviewed</button>
-                    <button class="tab" onclick="filterByStatus('accepted')">Accepted</button>
-                    <button class="tab" onclick="filterByStatus('rejected')">Rejected</button>
-                </div>
-
-                <div id="loadingApplications" style="text-align: center; padding: 3rem;">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent);"></i>
-                    <p style="color: var(--text-secondary); margin-top: 1rem;">Loading applications...</p>
-                </div>
-
-                <div id="applicationsList" style="display: none;">
-                    <!-- Applications will be loaded here -->
-                </div>
-
-                <div id="noApplications" style="display: none; text-align: center; padding: 3rem;">
-                    <i class="fas fa-inbox fa-3x"
-                        style="color: var(--text-light); margin-bottom: 1rem; opacity: 0.5;"></i>
-                    <h3>No Applications Yet</h3>
-                    <p style="color: var(--text-secondary);">Applications from students will appear here.</p>
-                </div>
+            <div id="loadingApplications" style="text-align: center; padding: 3rem;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent);"></i>
+                <p style="color: var(--text-secondary); margin-top: 1rem;">Loading applications...</p>
             </div>
+
+            <div id="applicationsList" style="display: none;">
+                <!-- Applications will be loaded here -->
+            </div>
+
+            <div id="noApplications" style="display: none; text-align: center; padding: 3rem;">
+                <i class="fas fa-inbox fa-3x" style="color: var(--text-light); margin-bottom: 1rem; opacity: 0.5;"></i>
+                <h3>No Applications Yet</h3>
+                <p style="color: var(--text-secondary);">Applications from students will appear here.</p>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -199,6 +314,8 @@
         let currentCompany = null;
         let allApplications = [];
         let currentFilter = 'all';
+        let isEditMode = false;
+        let currentUser = null;
 
         async function loadDashboard() {
             try {
@@ -206,32 +323,172 @@
                 const session = await protectPage();
                 if (!session) return;
 
-                const user = session.user;
+                currentUser = session.user;
 
-                // Load company profile
-                const { data: company, error: companyError } = await supabase
+                // Load company profile using user_id first
+                let { data: company, error: companyError } = await supabase
                     .from('company_registrations')
                     .select('*')
-                    .eq('email', user.email)
+                    .eq('user_id', currentUser.id)
                     .single();
 
-                if (companyError || !company) {
+                // Fallback to email if user_id not found (migration support)
+                if (!company) {
+                    const { data: companyByEmail } = await supabase
+                        .from('company_registrations')
+                        .select('*')
+                        .eq('email', currentUser.email)
+                        .single();
+                    company = companyByEmail;
+                }
+
+                if (!company) {
                     alert('⚠️ No company profile found. Please register your company first.');
                     window.location.href = 'register-company.html';
                     return;
                 }
 
                 currentCompany = company;
-                document.getElementById('companyName').textContent = company.company_name;
-                document.getElementById('companyEmail').textContent = company.email;
+
+                // Render profile view
+                renderCompanyProfileView(company);
 
                 // Load applications for this company
                 await loadApplications();
 
             } catch (error) {
                 console.error('Dashboard error:', error);
-                alert('Error loading dashboard. Please try again.');
+                // alert('Error loading dashboard. Please try again.');
             }
+        }
+
+        function renderCompanyProfileView(company) {
+            document.getElementById('companyName').textContent = company.company_name;
+            document.getElementById('companyEmail').textContent = company.email;
+
+            document.getElementById('companyProfileView').style.display = 'block';
+
+            document.getElementById('view_company_name').textContent = company.company_name || 'N/A';
+            document.getElementById('view_industry').textContent = company.industry || 'N/A';
+            document.getElementById('view_contact_person').textContent = company.contact_person || 'N/A';
+            document.getElementById('view_email').textContent = company.email || 'N/A';
+            document.getElementById('view_phone').textContent = company.phone || 'N/A';
+            document.getElementById('view_website').textContent = company.website || 'N/A';
+            document.getElementById('view_description').textContent = company.description || 'N/A';
+            document.getElementById('view_address').textContent =
+                [company.company_address, company.company_city].filter(Boolean).join(', ') || 'N/A';
+
+            // Show edit button
+            document.getElementById('editCompanyBtn').style.display = 'inline-block';
+        }
+
+        function toggleCompanyEditMode() {
+            isEditMode = !isEditMode;
+            const viewDiv = document.getElementById('companyProfileView');
+            const editForm = document.getElementById('companyProfileEditForm');
+            const editBtn = document.getElementById('editCompanyBtn');
+
+            if (isEditMode) {
+                viewDiv.style.display = 'none';
+                editForm.style.display = 'block';
+                editBtn.style.display = 'none';
+                populateCompanyEditForm();
+            } else {
+                viewDiv.style.display = 'block';
+                editForm.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+            }
+        }
+
+        function cancelCompanyEdit() {
+            isEditMode = false;
+            document.getElementById('companyProfileView').style.display = 'block';
+            document.getElementById('companyProfileEditForm').style.display = 'none';
+            document.getElementById('editCompanyBtn').style.display = 'inline-block';
+        }
+
+        function populateCompanyEditForm() {
+            if (!currentCompany) return;
+            document.getElementById('edit_company_name').value = currentCompany.company_name || '';
+            document.getElementById('edit_industry').value = currentCompany.industry || '';
+            document.getElementById('edit_contact_person').value = currentCompany.contact_person || '';
+            document.getElementById('edit_phone').value = currentCompany.phone || '';
+            document.getElementById('edit_website').value = currentCompany.website || '';
+            document.getElementById('edit_company_city').value = currentCompany.company_city || '';
+            document.getElementById('edit_company_address').value = currentCompany.company_address || '';
+            document.getElementById('edit_description').value = currentCompany.description || '';
+        }
+
+        // Handle Company Profile Update
+        document.getElementById('companyProfileEditForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            const companyData = {
+                company_name: document.getElementById('edit_company_name').value,
+                industry: document.getElementById('edit_industry').value,
+                contact_person: document.getElementById('edit_contact_person').value,
+                phone: document.getElementById('edit_phone').value,
+                website: document.getElementById('edit_website').value,
+                company_city: document.getElementById('edit_company_city').value,
+                company_address: document.getElementById('edit_company_address').value,
+                description: document.getElementById('edit_description').value
+            };
+
+            const result = await updateCompanyProfile(currentUser.id, companyData);
+
+            if (result.success) {
+                currentCompany = { ...currentCompany, ...companyData };
+                renderCompanyProfileView(currentCompany);
+                cancelCompanyEdit();
+                showMessage('companyMessage', 'Profile updated successfully!', 'success');
+            } else {
+                showMessage('companyMessage', 'Error updating profile. Please try again.', 'error');
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+
+        // Handle Password Change
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (newPassword !== confirmPassword) {
+                showMessage('passwordMessage', 'Passwords do not match!', 'error');
+                return;
+            }
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            btn.disabled = true;
+
+            const result = await changeUserPassword(newPassword);
+
+            if (result.success) {
+                showMessage('passwordMessage', 'Password updated successfully!', 'success');
+                e.target.reset();
+            } else {
+                showMessage('passwordMessage', 'Error updating password: ' + (result.error.message || 'Unknown error'), 'error');
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+
+        function showMessage(elementId, text, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = text;
+            el.style.display = 'block';
+            el.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+            el.style.color = type === 'success' ? '#155724' : '#721c24';
+            setTimeout(() => { el.style.display = 'none'; }, 5000);
         }
 
         async function loadApplications() {

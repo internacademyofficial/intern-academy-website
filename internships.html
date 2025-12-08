@@ -87,7 +87,7 @@
 <body>
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> Intern<span>Academy</span></a>
+            <a href="index.html" class="logo"><img src="assets/logo-full.png" alt="Intern Academy - A Launchpad to Real-World Skills" style="height: 120px; width: auto;"></a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="internships.html" class="nav-link" style="color: var(--accent);">Internships</a>
@@ -126,13 +126,8 @@
                             <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Location</h5>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="location-filter" value="remote"
-                                    onchange="filterInternships()"> Remote
-                            </label>
-                            <label
-                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="location-filter" value="bangalore"
-                                    onchange="filterInternships()"> Bangalore
+                                <input type="checkbox" class="location-filter" value="pune"
+                                    onchange="filterInternships()"> Pune
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
@@ -141,18 +136,23 @@
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="location-filter" value="delhi"
-                                    onchange="filterInternships()"> Delhi NCR
+                                <input type="checkbox" class="location-filter" value="bangalore"
+                                    onchange="filterInternships()"> Bangalore
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="location-filter" value="hyderabad"
-                                    onchange="filterInternships()"> Hyderabad
+                                <input type="checkbox" class="location-filter" value="sambhajinagar"
+                                    onchange="filterInternships()"> Sambhajinagar
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="location-filter" value="gurgaon"
-                                    onchange="filterInternships()"> Gurgaon
+                                <input type="checkbox" class="location-filter" value="nashik"
+                                    onchange="filterInternships()"> Nashik
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="location-filter" value="chennai"
+                                    onchange="filterInternships()"> Chennai
                             </label>
                         </div>
 
@@ -160,13 +160,28 @@
                             <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Category</h5>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="it"
+                                    onchange="filterInternships()"> IT
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
                                 <input type="checkbox" class="category-filter" value="engineering"
                                     onchange="filterInternships()"> Engineering
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="category-filter" value="design"
-                                    onchange="filterInternships()"> Design
+                                <input type="checkbox" class="category-filter" value="medical"
+                                    onchange="filterInternships()"> Medical
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="pharma"
+                                    onchange="filterInternships()"> Pharma
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="management"
+                                    onchange="filterInternships()"> Management
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
@@ -175,8 +190,66 @@
                             </label>
                             <label
                                 style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                                <input type="checkbox" class="category-filter" value="data-science"
-                                    onchange="filterInternships()"> Data Science
+                                <input type="checkbox" class="category-filter" value="social-media"
+                                    onchange="filterInternships()"> Social Media
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="design"
+                                    onchange="filterInternships()"> Design
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="architecture"
+                                    onchange="filterInternships()"> Architecture
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="construction"
+                                    onchange="filterInternships()"> Construction
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="category-filter" value="law"
+                                    onchange="filterInternships()"> Law
+                            </label>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Duration</h5>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="duration-filter" value="3" onchange="filterInternships()">
+                                3 Months
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="duration-filter" value="6" onchange="filterInternships()">
+                                6 Months
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="duration-filter" value="other"
+                                    onchange="filterInternships()"> Other
+                            </label>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Work Mode</h5>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="workmode-filter" value="remote"
+                                    onchange="filterInternships()"> Remote
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="workmode-filter" value="hybrid"
+                                    onchange="filterInternships()"> Hybrid
+                            </label>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                                <input type="checkbox" class="workmode-filter" value="office"
+                                    onchange="filterInternships()"> In-Office
                             </label>
                         </div>
 
@@ -198,168 +271,165 @@
 
                 <!-- Internship List -->
                 <div class="internship-list" id="internshipList">
-                    <!-- Item 1 - Google Frontend Developer -->
-                    <div class="internship-card" data-location="bangalore" data-category="engineering"
-                        data-stipend="45000">
+                    <!-- Pune Internships -->
+                    <!-- 1. Tata Technologies - Engineering -->
+                    <div class="internship-card" data-location="pune" data-category="engineering" data-stipend="15000"
+                        data-duration="6" data-workmode="office">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
-                                <i class="fab fa-google fa-2x"></i>
+                                <i class="fas fa-cogs fa-2x"></i>
                             </div>
                             <div class="internship-info">
-                                <h3>Frontend Developer Intern</h3>
-                                <p class="text-primary">Google Inc.</p>
+                                <h3>Mechanical Engineering Intern</h3>
+                                <p class="text-primary">Tata Technologies</p>
                                 <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore (Hybrid)</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹45,000/mo</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Pune</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹15,000/mo</span>
                                     <span><i class="fas fa-clock"></i> 6 Months</span>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="Frontend Developer Intern"
-                            data-company="Google Inc." onclick="openApplyModal(this)">Apply Now</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Mechanical Engineering Intern"
+                                data-company="Tata Technologies">Details</button>
+                            <button class="btn btn-secondary apply-btn" data-internship="Mechanical Engineering Intern"
+                                data-company="Tata Technologies" onclick="openApplyModal(this)">Apply Now</button>
+                        </div>
                     </div>
 
-                    <!-- Item 2 - Amazon SDE -->
-                    <div class="internship-card" data-location="hyderabad" data-category="engineering"
-                        data-stipend="80000">
+                    <!-- 2. Persistent Systems - IT -->
+                    <div class="internship-card" data-location="pune" data-category="it" data-stipend="14000"
+                        data-duration="3" data-workmode="hybrid">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
-                                <i class="fab fa-amazon fa-2x"></i>
+                                <i class="fas fa-laptop-code fa-2x"></i>
                             </div>
                             <div class="internship-info">
-                                <h3>SDE Intern</h3>
-                                <p class="text-primary">Amazon</p>
+                                <h3>Software Development Intern</h3>
+                                <p class="text-primary">Persistent Systems</p>
                                 <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Hyderabad</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹80,000/mo</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Pune (Hybrid)</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹14,000/mo</span>
                                     <span><i class="fas fa-clock"></i> 3 Months</span>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="SDE Intern" data-company="Amazon"
-                            onclick="openApplyModal(this)">Apply Now</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Software Development Intern"
+                                data-company="Persistent Systems">Details</button>
+                            <button class="btn btn-secondary apply-btn" data-internship="Software Development Intern"
+                                data-company="Persistent Systems" onclick="openApplyModal(this)">Apply Now</button>
+                        </div>
                     </div>
 
-                    <!-- Item 3 - Spotify Product Design -->
-                    <div class="internship-card" data-location="mumbai" data-category="design" data-stipend="35000">
+                    <!-- Mumbai Internships -->
+                    <!-- 3. Cipla - Pharma -->
+                    <div class="internship-card" data-location="mumbai" data-category="pharma" data-stipend="12000"
+                        data-duration="6" data-workmode="office">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
-                                <i class="fab fa-spotify fa-2x"></i>
+                                <i class="fas fa-pills fa-2x"></i>
+                            </div>
+                            <div class="internship-info">
+                                <h3>Pharmaceutical Research Intern</h3>
+                                <p class="text-primary">Cipla Ltd</p>
+                                <div class="internship-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹12,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 6 Months</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Pharmaceutical Research Intern"
+                                data-company="Cipla Ltd">Details</button>
+                            <button class="btn btn-secondary apply-btn" data-internship="Pharmaceutical Research Intern"
+                                data-company="Cipla Ltd" onclick="openApplyModal(this)">Apply Now</button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Godrej & Boyce - Design -->
+                    <div class="internship-card" data-location="mumbai" data-category="design" data-stipend="14000"
+                        data-duration="4" data-workmode="office">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="company-logo">
+                                <i class="fas fa-paint-brush fa-2x"></i>
                             </div>
                             <div class="internship-info">
                                 <h3>Product Design Intern</h3>
-                                <p class="text-primary">Spotify</p>
-                                <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Mumbai (Remote)</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹35,000/mo</span>
-                                    <span><i class="fas fa-clock"></i> 4 Months</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="Product Design Intern"
-                            data-company="Spotify" onclick="openApplyModal(this)">Apply Now</button>
-                    </div>
-
-                    <!-- Item 4 - Microsoft Data Science -->
-                    <div class="internship-card" data-location="bangalore" data-category="data-science"
-                        data-stipend="60000">
-                        <div style="display: flex; align-items: center; flex: 1;">
-                            <div class="company-logo">
-                                <i class="fab fa-microsoft fa-2x"></i>
-                            </div>
-                            <div class="internship-info">
-                                <h3>Data Science Intern</h3>
-                                <p class="text-primary">Microsoft</p>
-                                <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹60,000/mo</span>
-                                    <span><i class="fas fa-clock"></i> 6 Months</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="Data Science Intern"
-                            data-company="Microsoft" onclick="openApplyModal(this)">Apply Now</button>
-                    </div>
-
-                    <!-- Item 5 - Uber Marketing -->
-                    <div class="internship-card" data-location="gurgaon" data-category="marketing" data-stipend="25000">
-                        <div style="display: flex; align-items: center; flex: 1;">
-                            <div class="company-logo">
-                                <i class="fab fa-uber fa-2x"></i>
-                            </div>
-                            <div class="internship-info">
-                                <h3>Marketing Intern</h3>
-                                <p class="text-primary">Uber</p>
-                                <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Gurgaon</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹25,000/mo</span>
-                                    <span><i class="fas fa-clock"></i> 3 Months</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="Marketing Intern"
-                            data-company="Uber" onclick="openApplyModal(this)">Apply Now</button>
-                    </div>
-
-                    <!-- Item 6 - Netflix Content Writer -->
-                    <div class="internship-card" data-location="mumbai" data-category="marketing" data-stipend="30000">
-                        <div style="display: flex; align-items: center; flex: 1;">
-                            <div class="company-logo">
-                                <i class="fab fa-netflix fa-2x"></i>
-                            </div>
-                            <div class="internship-info">
-                                <h3>Content Marketing Intern</h3>
-                                <p class="text-primary">Netflix</p>
+                                <p class="text-primary">Godrej & Boyce</p>
                                 <div class="internship-meta">
                                     <span><i class="fas fa-map-marker-alt"></i> Mumbai</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹30,000/mo</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹14,000/mo</span>
                                     <span><i class="fas fa-clock"></i> 4 Months</span>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="Content Marketing Intern"
-                            data-company="Netflix" onclick="openApplyModal(this)">Apply Now</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Product Design Intern" data-company="Godrej & Boyce">Details</button>
+                            <button class="btn btn-secondary apply-btn" data-internship="Product Design Intern" <button
+                                class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Business Consulting Intern" data-company="KPMG India">Details</button>
+                            <button class="btn btn-secondary apply-btn" data-internship="Business Consulting Intern"
+                                data-company="KPMG India" onclick="openApplyModal(this)">Apply Now</button>
+                        </div>
                     </div>
 
-                    <!-- Item 7 - Adobe UX Design -->
-                    <div class="internship-card" data-location="bangalore" data-category="design" data-stipend="50000">
+                    <!-- 23. Fortis Healthcare - Medical - Bangalore -->
+                    <div class="internship-card" data-location="bangalore" data-category="medical" data-stipend="11000"
+                        data-duration="4" data-workmode="office">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
-                                <i class="fas fa-palette fa-2x"></i>
+                                <i class="fas fa-heartbeat fa-2x"></i>
                             </div>
                             <div class="internship-info">
-                                <h3>UX Design Intern</h3>
-                                <p class="text-primary">Adobe</p>
+                                <h3>Healthcare Administration Intern</h3>
+                                <p class="text-primary">Fortis Healthcare</p>
                                 <div class="internship-meta">
                                     <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹50,000/mo</span>
-                                    <span><i class="fas fa-clock"></i> 5 Months</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹11,000/mo</span>
+                                    <span><i class="fas fa-clock"></i> 4 Months</span>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="UX Design Intern"
-                            data-company="Adobe" onclick="openApplyModal(this)">Apply Now</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Healthcare Administration Intern"
+                                data-company="Fortis Healthcare">Details</button>
+                            <button class="btn btn-secondary apply-btn"
+                                data-internship="Healthcare Administration Intern" data-company="Fortis Healthcare"
+                                onclick="openApplyModal(this)">Apply Now</button>
+                        </div>
                     </div>
 
-                    <!-- Item 8 - Meta Backend Developer -->
-                    <div class="internship-card" data-location="remote" data-category="engineering"
-                        data-stipend="90000">
+                    <!-- 24. Crompton Greaves - Engineering - Nashik -->
+                    <div class="internship-card" data-location="nashik" data-category="engineering" data-stipend="14000"
+                        data-duration="6" data-workmode="office">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="company-logo">
-                                <i class="fab fa-meta fa-2x"></i>
+                                <i class="fas fa-bolt fa-2x"></i>
                             </div>
                             <div class="internship-info">
-                                <h3>Backend Developer Intern</h3>
-                                <p class="text-primary">Meta</p>
+                                <h3>Electrical Engineering Intern</h3>
+                                <p class="text-primary">Crompton Greaves</p>
                                 <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Remote</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹90,000/mo</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Nashik</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ₹14,000/mo</span>
                                     <span><i class="fas fa-clock"></i> 6 Months</span>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="Backend Developer Intern"
-                            data-company="Meta" onclick="openApplyModal(this)">Apply Now</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" onclick="openDetailsModal(this)"
+                                data-internship="Electrical Engineering Intern"
+                                data-company="Crompton Greaves">Details</button>
+                            <button class="btn btn-secondary apply-btn" data-internship="Electrical Engineering Intern"
+                                data-company="Crompton Greaves" onclick="openApplyModal(this)">Apply Now</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -372,6 +442,35 @@
             </div>
         </div>
     </section>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="detailModalTitle">Internship Title</h2>
+                <span class="close" onclick="closeDetailsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-primary" id="detailModalCompany" style="margin-bottom: 1rem;">Company Name</h4>
+
+                <h5 style="margin-bottom: 0.5rem;">Description</h5>
+                <p id="detailDescription" style="margin-bottom: 1.5rem; color: var(--text-light);"></p>
+
+                <h5 style="margin-bottom: 0.5rem;">Requirements</h5>
+                <ul id="detailRequirements"
+                    style="margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--text-light);"></ul>
+
+                <h5 style="margin-bottom: 0.5rem;">Responsibilities</h5>
+                <ul id="detailResponsibilities"
+                    style="margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--text-light);"></ul>
+
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button class="btn btn-secondary" onclick="closeDetailsModal()">Close</button>
+                    <button id="detailApplyBtn" class="btn btn-primary">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Application Modal -->
     <div id="applyModal" class="modal">
@@ -411,12 +510,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Resume/CV Link (Google Drive, Dropbox, etc.) <span
+                            <label class="form-label">Resume/CV (PDF, DOC, DOCX) <span
                                     style="color: red;">*</span></label>
-                            <input type="url" id="applyResumeUrl" class="form-control"
-                                placeholder="https://drive.google.com/..." required>
-                            <small style="color: var(--text-light); font-size: 0.85rem;">Make sure your link is
-                                publicly accessible</small>
+                            <input type="file" id="applyResumeFile" class="form-control" accept=".pdf,.doc,.docx"
+                                required>
+                            <small style="color: var(--text-light); font-size: 0.85rem;">Max file size: 5MB</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">LinkedIn / Portfolio URL (Optional)</label>
+                            <input type="url" id="applyLinkedinUrl" class="form-control"
+                                placeholder="https://linkedin.com/in/...">
                         </div>
 
                         <div class="form-group">
@@ -439,6 +543,45 @@
 
     <footer>
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="color: white;">
+                        <img src="assets/logo-full.png" alt="Intern Academy - A Launchpad to Real-World Skills" style="height: 120px; width: auto;">
+                    </a>
+                    <p>Empowering the next generation of professionals across diverse industries through premium
+                        local internships and world-class education.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="internships.html">Browse Internships</a></li>
+                        <li><a href="courses.html">Browse Courses</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="news.html">News & Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="footer-bottom">
                 <p>&copy; 2024 Intern Academy. All rights reserved.</p>
             </div>
@@ -463,10 +606,190 @@
             }
         }
 
+        // Internship details data
+        const internshipDetails = {
+            // Pune Internships
+            "Mechanical Engineering Intern-Tata Technologies": {
+                description: "Join Tata Technologies' engineering team to work on cutting-edge automotive and industrial design projects for global clients.",
+                requirements: ["Mechanical Engineering student", "CAD software knowledge (AutoCAD/SolidWorks)", "Understanding of engineering principles", "Strong problem-solving skills"],
+                responsibilities: ["Assist in product design", "Create technical drawings", "Perform design calculations", "Collaborate with senior engineers"]
+            },
+            "Software Development Intern-Persistent Systems": {
+                description: "Work with Persistent Systems to develop innovative software solutions for enterprise clients across various industries.",
+                requirements: ["Computer Science/IT student", "Java, Python, or C++ programming", "Understanding of OOP concepts", "Good communication skills"],
+                responsibilities: ["Code development", "Unit testing", "Bug fixing", "Participate in agile ceremonies"]
+            },
+            "Mobile App Development Intern-Cybage Software": {
+                description: "Build cutting-edge mobile applications using modern frameworks and technologies at one of Pune's leading IT companies.",
+                requirements: ["Mobile development knowledge (Android/iOS)", "Java/Kotlin or Swift experience", "UI/UX awareness", "Problem-solving mindset"],
+                responsibilities: ["Develop mobile features", "Test applications", "Optimize performance", "Document code"]
+            },
+            "Business Consulting Intern-KPMG India": {
+                description: "Gain exposure to management consulting by working with KPMG's consulting teams on real client engagements.",
+                requirements: ["Business/Management student", "Strong analytical skills", "Excel and PowerPoint proficiency", "Excellent communication"],
+                responsibilities: ["Market research", "Data analysis", "Client presentations", "Report preparation"]
+            },
+            "Construction Management Intern-Shapoorji Pallonji": {
+                description: "Experience large-scale infrastructure projects with one of India's oldest and most respected construction companies.",
+                requirements: ["Civil Engineering student", "Basic project management knowledge", "AutoCAD skills", "Site visit readiness"],
+                responsibilities: ["Site supervision", "Progress reporting", "Quality checks", "Coordinate with contractors"]
+            },
+
+            // Mumbai Internships
+            "Pharmaceutical Research Intern-Cipla Ltd": {
+                description: "Contribute to pharmaceutical research and development at Cipla, helping develop life-saving medications.",
+                requirements: ["Pharmacy/Chemistry student", "Laboratory techniques", "Attention to detail", "Documentation skills"],
+                responsibilities: ["Conduct experiments", "Analyze samples", "Maintain lab records", "Literature review"]
+            },
+            "Product Design Intern-Godrej & Boyce": {
+                description: "Design innovative products for Godrej's diverse portfolio including appliances, furniture, and industrial solutions.",
+                requirements: ["Industrial/Product Design student", "3D modeling skills", "Design software (Rhino/Fusion 360)", "Creative thinking"],
+                responsibilities: ["Create design concepts", "Build prototypes", "User research", "Design presentations"]
+            },
+            "Business Management Intern-Reliance Industries": {
+                description: "Work with India's largest conglomerate on strategic business initiatives across multiple sectors.",
+                requirements: ["MBA/Business student", "Strategic thinking", "Financial analysis skills", "Leadership potential"],
+                responsibilities: ["Business analysis", "Strategy development", "Market research", "Stakeholder management"]
+            },
+            "Law Legal Associate Intern-AZB & Partners": {
+                description: "Gain practical legal experience at one of India's premier law firms handling high-profile cases.",
+                requirements: ["Law student (3rd year+)", "Legal research skills", "Strong writing ability", "Attention to detail"],
+                responsibilities: ["Legal research", "Draft documents", "Case preparation", "Client meetings"]
+            },
+            "Architectural Design Intern-Hafeez Contractor": {
+                description: "Work alongside renowned architects on iconic building projects that shape India's urban landscape.",
+                requirements: ["Architecture student", "AutoCAD/Revit proficiency", "3D visualization skills", "Design sense"],
+                responsibilities: ["Architectural drawings", "3D modeling", "Site visits", "Design development"]
+            },
+
+            // Bangalore Internships
+            "Full Stack Developer Intern-Infosys": {
+                description: "Develop full-stack applications using modern technologies at one of India's leading IT services companies.",
+                requirements: ["Computer Science student", "HTML/CSS/JavaScript", "Backend framework knowledge", "Database basics"],
+                responsibilities: ["Frontend development", "Backend APIs", "Database integration", "Code reviews"]
+            },
+            "Digital Marketing Intern-Wipro": {
+                description: "Execute digital marketing campaigns for Wipro's global brand and business units.",
+                requirements: ["Marketing/Communications student", "Social media expertise", "Content creation", "Analytics knowledge"],
+                responsibilities: ["Campaign management", "Content creation", "Social media posting", "Performance analysis"]
+            },
+            "Clinical Research Intern-Biocon": {
+                description: "Participate in clinical research for breakthrough biotechnology and pharmaceutical products.",
+                requirements: ["Life Sciences/Pharmacy student", "Research methodology", "Data analysis", "Regulatory knowledge"],
+                responsibilities: ["Clinical data collection", "Research documentation", "Statistical analysis", "Protocol adherence"]
+            },
+            "Social Media Content Intern-Flipkart": {
+                description: "Create engaging social media content for India's leading e-commerce platform reaching millions of users.",
+                requirements: ["Mass Communication student", "Content writing", "Social media trends awareness", "Creative skills"],
+                responsibilities: ["Content creation", "Social media management", "Campaign ideation", "Engagement monitoring"]
+            },
+            "Healthcare Administration Intern-Fortis Healthcare": {
+                description: "Support hospital administration and healthcare management at Fortis Healthcare facilities.",
+                requirements: ["Healthcare Management student", "Basic medical terminology", "MS Office skills", "People skills"],
+                responsibilities: ["Patient coordination", "Administrative support", "Data management", "Process improvement"]
+            },
+
+            // Chennai Internships
+            "Backend Developer Intern-Tata Consultancy Services": {
+                description: "Build scalable backend systems for TCS's global enterprise clients using cutting-edge technologies.",
+                requirements: ["Computer Science student", "Java/Python/Node.js", "RESTful APIs", "Database knowledge"],
+                responsibilities: ["API development", "Database queries", "System integration", "Code testing"]
+            },
+            "Civil Engineering Intern-L&T Construction": {
+                description: "Work on mega infrastructure projects with L&T, India's largest construction and engineering company.",
+                requirements: ["Civil Engineering student", "Construction knowledge", "Site experience preferred", "Safety awareness"],
+                responsibilities: ["Site inspections", "Quality testing", "Progress tracking", "Technical documentation"]
+            },
+            "Medical Research Intern-Apollo Hospitals": {
+                description: "Participate in medical research initiatives at Apollo Hospitals' state-of-the-art research facilities.",
+                requirements: ["Medical/Life Sciences student", "Research interest", "Data collection skills", "Ethical awareness"],
+                responsibilities: ["Patient data collection", "Research assistance", "Literature review", "Report preparation"]
+            },
+            "Pharmaceutical Quality Control Intern-Dr. Reddy's Laboratories": {
+                description: "Ensure pharmaceutical product quality through rigorous testing and quality control processes.",
+                requirements: ["Pharmacy/Chemistry student", "Lab techniques", "Quality standards knowledge", "Precision mindset"],
+                responsibilities: ["Sample testing", "Quality checks", "Documentation", "Compliance monitoring"]
+            },
+
+            // Nashik Internships
+            "Brand Marketing Intern-Sula Vineyards": {
+                description: "Promote India's leading wine brand through innovative marketing and brand activation campaigns.",
+                requirements: ["Marketing student", "Brand awareness", "Event management", "Creative thinking"],
+                responsibilities: ["Event planning", "Brand promotion", "Market surveys", "Content creation"]
+            },
+            "Automobile Engineering Intern-Mahindra & Mahindra": {
+                description: "Work on automotive engineering projects at Mahindra's R&D and manufacturing facilities.",
+                requirements: ["Mechanical/Automobile Engineering student", "Vehicle systems knowledge", "CAD skills", "Innovation mindset"],
+                responsibilities: ["Design support", "Testing assistance", "Documentation", "Quality analysis"]
+            },
+            "Electrical Engineering Intern-Crompton Greaves": {
+                description: "Gain hands-on experience in electrical engineering and power systems at Crompton Greaves.",
+                requirements: ["Electrical Engineering student", "Circuit design knowledge", "Testing equipment familiarity", "Safety consciousness"],
+                responsibilities: ["Product testing", "Technical documentation", "Quality inspections", "R&D support"]
+            },
+
+            // Sambhajinagar Internships
+            "Social Media Marketing Intern-Garware Technical Fibres": {
+                description: "Manage social media presence for Garware Technical Fibres' innovative industrial products.",
+                requirements: ["Marketing/Communications student", "Social media platforms", "Content creation", "Digital tools"],
+                responsibilities: ["Social media posts", "Content planning", "Engagement tracking", "Campaign support"]
+            },
+            "Production Engineering Intern-Skoda Auto India": {
+                description: "Learn automotive production processes at Skoda Auto India's modern manufacturing facility.",
+                requirements: ["Mechanical/Production Engineering student", "Manufacturing processes knowledge", "Lean principles", "Safety awareness"],
+                responsibilities: ["Production support", "Process observation", "Quality checks", "Efficiency analysis"]
+            }
+        };
+
+        // Open details modal
+        function openDetailsModal(button) {
+            const internship = button.getAttribute('data-internship');
+            const company = button.getAttribute('data-company');
+            const key = `${internship}-${company}`;
+            const details = internshipDetails[key] || {
+                description: "Exciting internship opportunity. Contact us for more details.",
+                requirements: ["Relevant skills and experience"],
+                responsibilities: ["Standard intern responsibilities"]
+            };
+
+            document.getElementById('detailModalTitle').textContent = internship;
+            document.getElementById('detailModalCompany').textContent = company;
+            document.getElementById('detailDescription').textContent = details.description;
+
+            const reqList = document.getElementById('detailRequirements');
+            reqList.innerHTML = details.requirements.map(r => `<li>${r}</li>`).join('');
+
+            const respList = document.getElementById('detailResponsibilities');
+            respList.innerHTML = details.responsibilities.map(r => `<li>${r}</li>`).join('');
+
+            // Setup Apply Button in Details Modal
+            const applyBtn = document.getElementById('detailApplyBtn');
+            applyBtn.onclick = function () {
+                closeDetailsModal();
+                const mockBtn = {
+                    getAttribute: (attr) => {
+                        if (attr === 'data-internship') return internship;
+                        if (attr === 'data-company') return company;
+                        return null;
+                    }
+                };
+                openApplyModal(mockBtn);
+            };
+
+            document.getElementById('detailsModal').style.display = 'block';
+        }
+
+        // Close details modal
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+
         function filterInternships() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const selectedLocations = Array.from(document.querySelectorAll('.location-filter:checked')).map(cb => cb.value);
             const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+            const selectedDurations = Array.from(document.querySelectorAll('.duration-filter:checked')).map(cb => cb.value);
+            const selectedWorkModes = Array.from(document.querySelectorAll('.workmode-filter:checked')).map(cb => cb.value);
             const minStipend = parseInt(document.getElementById('stipendRange').value);
 
             const internshipCards = document.querySelectorAll('.internship-card');
@@ -476,6 +799,8 @@
                 const location = card.getAttribute('data-location');
                 const category = card.getAttribute('data-category');
                 const stipend = parseInt(card.getAttribute('data-stipend'));
+                const duration = card.getAttribute('data-duration');
+                const workmode = card.getAttribute('data-workmode');
                 const text = card.textContent.toLowerCase();
 
                 // Check all filter conditions
@@ -484,8 +809,22 @@
                 const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
                 const matchesStipend = stipend >= minStipend;
 
+                // Duration Match
+                let matchesDuration = selectedDurations.length === 0;
+                if (!matchesDuration) {
+                    if (selectedDurations.includes('other')) {
+                        // If 'other' is selected, match anything not 3 or 6, OR if it matches specific selection
+                        matchesDuration = selectedDurations.includes(duration) || (duration !== '3' && duration !== '6');
+                    } else {
+                        matchesDuration = selectedDurations.includes(duration);
+                    }
+                }
+
+                // Work Mode Match
+                const matchesWorkMode = selectedWorkModes.length === 0 || selectedWorkModes.includes(workmode);
+
                 // Show card only if all conditions match
-                if (matchesSearch && matchesLocation && matchesCategory && matchesStipend) {
+                if (matchesSearch && matchesLocation && matchesCategory && matchesStipend && matchesDuration && matchesWorkMode) {
                     card.style.display = 'flex';
                     visibleCount++;
                 } else {
@@ -507,235 +846,37 @@
 
         function updateStipendValue() {
             const stipendRange = document.getElementById('stipendRange');
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹30,000/mo</span>
-                                    <span><i class="fas fa-clock"></i> 4 Months</span>
-                                </div >
-                            </div >
-                        </div >
-                <button class="btn btn-secondary apply-btn" data-internship="Content Marketing Intern"
-                    data-company="Netflix" onclick="openApplyModal(this)">Apply Now</button>
-                    </div >
-
-                    <!-- Item 7 - Adobe UX Design -->
-                    <div class="internship-card" data-location="bangalore" data-category="design" data-stipend="50000">
-                        <div style="display: flex; align-items: center; flex: 1;">
-                            <div class="company-logo">
-                                <i class="fas fa-palette fa-2x"></i>
-                            </div>
-                            <div class="internship-info">
-                                <h3>UX Design Intern</h3>
-                                <p class="text-primary">Adobe</p>
-                                <div class="internship-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
-                                    <span><i class="fas fa-money-bill-wave"></i> ₹50,000/mo</span>
-                                    <span><i class="fas fa-clock"></i> 5 Months</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary apply-btn" data-internship="UX Design Intern"
-                            data-company="Adobe" onclick="openApplyModal(this)">Apply Now</button>
-                    </div>
-
-                    <!--Item 8 - Meta Backend Developer-- >
-                <div class="internship-card" data-location="remote" data-category="engineering"
-                    data-stipend="90000">
-                    <div style="display: flex; align-items: center; flex: 1;">
-                        <div class="company-logo">
-                            <i class="fab fa-meta fa-2x"></i>
-                        </div>
-                        <div class="internship-info">
-                            <h3>Backend Developer Intern</h3>
-                            <p class="text-primary">Meta</p>
-                            <div class="internship-meta">
-                                <span><i class="fas fa-map-marker-alt"></i> Remote</span>
-                                <span><i class="fas fa-money-bill-wave"></i> ₹90,000/mo</span>
-                                <span><i class="fas fa-clock"></i> 6 Months</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-secondary apply-btn" data-internship="Backend Developer Intern"
-                        data-company="Meta" onclick="openApplyModal(this)">Apply Now</button>
-                </div>
-                </div >
-            </div >
-
-            < !--No Results Message-- >
-                <div id="noResults" style="display: none; text-align: center; padding: 3rem; color: var(--text-light);">
-                    <i class="fas fa-search fa-3x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
-                    <h3>No internships found</h3>
-                    <p>Try adjusting your filters or search criteria</p>
-                </div>
-        </div >
-    </section >
-
-    < !--Application Modal-- >
-                <div id="applyModal" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 id="modalTitle">Apply for Internship</h2>
-                            <span class="close" onclick="closeApplyModal()">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <form id="applyForm">
-                                <input type="hidden" id="applyInternshipTitle">
-                                    <input type="hidden" id="applyCompanyName">
-                                        <input type="hidden" id="applyUserEmail">
-                                            <input type="hidden" id="applyUserId">
-
-                                                <div id="loginPrompt" style="display: none; padding: 2rem; text-align: center;">
-                                                    <i class="fas fa-lock fa-3x" style="color: var(--accent); margin-bottom: 1rem;"></i>
-                                                    <h3>Login Required</h3>
-                                                    <p style="margin: 1rem 0;">You need to be logged in to apply for internships.</p>
-                                                    <a href="login.html" class="btn btn-primary">Login Now</a>
-                                                    <p style="margin-top: 1rem; font-size: 0.9rem;">
-                                                        Don't have an account? <a href="register-student.html">Register here</a>
-                                                    </p>
-                                                </div>
-
-                                                <div id="applicationForm">
-                                                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                                                        <p style="margin: 0; font-size: 0.9rem;"><strong>Position:</strong> <span
-                                                            id="displayInternship"></span></p>
-                                                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;"><strong>Company:</strong> <span
-                                                            id="displayCompany"></span></p>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="form-label">Phone Number <span style="color: red;">*</span></label>
-                                                        <input type="tel" id="applyPhone" class="form-control" required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="form-label">Resume/CV Link (Google Drive, Dropbox, etc.) <span
-                                                            style="color: red;">*</span></label>
-                                                        <input type="url" id="applyResumeUrl" class="form-control"
-                                                            placeholder="https://drive.google.com/..." required>
-                                                            <small style="color: var(--text-light); font-size: 0.85rem;">Make sure your link is
-                                                                publicly accessible</small>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="form-label">Cover Letter (Optional)</label>
-                                                        <textarea id="applyCoverLetter" class="form-control" rows="5"
-                                                            placeholder="Tell us why you're a great fit for this position..."></textarea>
-                                                    </div>
-
-                                                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                                                        <button type="submit" class="btn btn-primary" style="flex: 1;">
-                                                            <i class="fas fa-paper-plane"></i> Submit Application
-                                                        </button>
-                                                        <button type="button" class="btn btn-secondary" onclick="closeApplyModal()">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <footer>
-                                    <div class="container">
-                                        <div class="footer-bottom">
-                                            <p>&copy; 2024 Intern Academy. All rights reserved.</p>
-                                        </div>
-                                    </div>
-                                </footer>
-
-                                <!-- Scripts -->
-                                <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="auth.js"></script>
-    <script src="app.js"></script>
-
-    <!-- Internship Filtering Script -->
-    <script>
-                            let currentUser = null;
-
-                            // Check authentication status on page load
-                            async function checkUserAuth() {
-            const session = await checkAuth();
-                            if (session && session.user) {
-                                currentUser = session.user;
-            }
+            const stipendValue = document.getElementById('stipendValue');
+            const value = parseInt(stipendRange.value);
+            stipendValue.textContent = '₹' + value.toLocaleString('en-IN');
         }
 
-                            function filterInternships() {
-            const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            const selectedLocations = Array.from(document.querySelectorAll('.location-filter:checked')).map(cb => cb.value);
-            const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
-                            const minStipend = parseInt(document.getElementById('stipendRange').value);
+        function clearFilters() {
+            // Clear search input
+            document.getElementById('searchInput').value = '';
 
-                            const internshipCards = document.querySelectorAll('.internship-card');
-                            let visibleCount = 0;
+            // Uncheck all filters
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
 
-            internshipCards.forEach(card => {
-                const location = card.getAttribute('data-location');
-                            const category = card.getAttribute('data-category');
-                            const stipend = parseInt(card.getAttribute('data-stipend'));
-                            const text = card.textContent.toLowerCase();
+            // Reset stipend slider
+            document.getElementById('stipendRange').value = 0;
+            updateStipendValue();
 
-                            // Check all filter conditions
-                            const matchesSearch = !searchInput || text.includes(searchInput);
-                            const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(location);
-                            const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
-                const matchesStipend = stipend >= minStipend;
-
-                            // Show card only if all conditions match
-                            if (matchesSearch && matchesLocation && matchesCategory && matchesStipend) {
-                                card.style.display = 'flex';
-                            visibleCount++;
-                } else {
-                                card.style.display = 'none';
-                }
-            });
-
-                            // Show/hide no results message
-                            const noResults = document.getElementById('noResults');
-                            const internshipList = document.getElementById('internshipList');
-                            if (visibleCount === 0) {
-                                internshipList.style.display = 'none';
-                            noResults.style.display = 'block';
-            } else {
-                                internshipList.style.display = 'block';
-                            noResults.style.display = 'none';
-            }
+            // Reapply filters (which will show all)
+            filterInternships();
         }
 
-                            function updateStipendValue() {
-            const stipendRange = document.getElementById('stipendRange');
-                            const stipendValue = document.getElementById('stipendValue');
-                            const value = parseInt(stipendRange.value);
-                            stipendValue.textContent = '₹' + value.toLocaleString('en-IN');
-        }
-
-                            function clearFilters() {
-                                // Clear search input
-                                document.getElementById('searchInput').value = '';
-
-            // Uncheck all location filters
-            document.querySelectorAll('.location-filter').forEach(cb => cb.checked = false);
-
-            // Uncheck all category filters
-            document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
-
-                            // Reset stipend slider
-                            document.getElementById('stipendRange').value = 0;
-                            updateStipendValue();
-
-                            // Reapply filters (which will show all)
-                            filterInternships();
-        }
-
-                            // Modal Functions
-                            async function openApplyModal(button) {
-                                console.log('Open Apply Modal clicked');
-                            try {
+        // Modal Functions
+        async function openApplyModal(button) {
+            console.log('Open Apply Modal clicked');
+            try {
                 const modal = document.getElementById('applyModal');
-                            const internship = button.getAttribute('data-internship');
-                            const company = button.getAttribute('data-company');
+                const internship = button.getAttribute('data-internship');
+                const company = button.getAttribute('data-company');
 
-                            console.log('Internship:', internship, 'Company:', company);
+                console.log('Internship:', internship, 'Company:', company);
 
-                            document.getElementById('modalTitle').textContent = `Apply for ${internship}`;
+                document.getElementById('modalTitle').textContent = `Apply for ${internship}`;
                 document.getElementById('displayInternship').textContent = internship;
                 document.getElementById('displayCompany').textContent = company;
                 document.getElementById('applyInternshipTitle').value = internship;
@@ -797,9 +938,13 @@
 
         // Close modal when clicking outside
         window.onclick = function (event) {
-            const modal = document.getElementById('applyModal');
-            if (event.target == modal) {
+            const applyModal = document.getElementById('applyModal');
+            const detailsModal = document.getElementById('detailsModal');
+            if (event.target == applyModal) {
                 closeApplyModal();
+            }
+            if (event.target == detailsModal) {
+                closeDetailsModal();
             }
         }
 
@@ -809,10 +954,38 @@
 
             const submitBtn = e.target.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
             submitBtn.disabled = true;
 
             try {
+                // 1. Handle File Upload
+                const fileInput = document.getElementById('applyResumeFile');
+                const file = fileInput.files[0];
+                let resumeUrl = null;
+
+                if (file) {
+                    const userId = document.getElementById('applyUserId').value;
+                    const timestamp = new Date().getTime();
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${userId}/${timestamp}_resume.${fileExt}`;
+
+                    const { data: uploadData, error: uploadError } = await supabase.storage
+                        .from('resumes')
+                        .upload(fileName, file);
+
+                    if (uploadError) throw uploadError;
+
+                    // Get Public URL
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('resumes')
+                        .getPublicUrl(fileName);
+
+                    resumeUrl = publicUrl;
+                } else {
+                    throw new Error('Please upload your resume.');
+                }
+
+                // 2. Submit Application Data
                 const formData = {
                     user_id: document.getElementById('applyUserId').value,
                     student_name: currentUser?.user_metadata?.full_name || 'Student',
@@ -820,7 +993,8 @@
                     phone: document.getElementById('applyPhone').value,
                     internship_title: document.getElementById('applyInternshipTitle').value,
                     company_name: document.getElementById('applyCompanyName').value,
-                    resume_url: document.getElementById('applyResumeUrl').value,
+                    resume_url: resumeUrl,
+                    linkedin_url: document.getElementById('applyLinkedinUrl').value || null,
                     cover_letter: document.getElementById('applyCoverLetter').value || null,
                     status: 'pending'
                 };
@@ -835,7 +1009,7 @@
                 closeApplyModal();
             } catch (error) {
                 console.error('Error submitting application:', error);
-                alert('❌ Error submitting application: ' + error.message);
+                alert('❌ Error submitting application: ' + (error.message || error.error_description || 'Unknown error'));
             } finally {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
