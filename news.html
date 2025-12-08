@@ -14,7 +14,8 @@
 <body>
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo"><img src="assets/logo-full.png" alt="Intern Academy - A Launchpad to Real-World Skills" style="height: 120px; width: auto;"></a>
+            <a href="index.html" class="logo"><img src="assets/logo-full.png"
+                    alt="Intern Academy - A Launchpad to Real-World Skills" style="height: 120px; width: auto;"></a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="internships.html" class="nav-link">Internships</a>
@@ -33,117 +34,203 @@
 
     <header class="section" style="background: white; padding-bottom: 2rem;">
         <div class="container">
-            <h1 class="text-center">New in the IT Sector</h1>
-            <p class="text-center" style="max-width: 600px; margin: 0 auto;">Stay updated with the latest trends,
-                technologies, and career advice.</p>
+            <h1 class="text-center">Tech News & Insights</h1>
+            <p class="text-center" style="max-width: 600px; margin: 0 auto;">Stay updated with the latest from Medium,
+                TechCrunch, Stack Overflow, and more trusted sources.</p>
         </div>
     </header>
 
     <section class="section">
         <div class="container">
-            <div class="grid-3">
-                <!-- Article 1 -->
-                <article class="card" style="padding: 0; overflow: hidden;">
-                    <div
-                        style="height: 200px; background: #1e293b; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-robot fa-3x"></i>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">AI & ML</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">The Rise of Generative AI</h3>
-                        <p style="font-size: 0.9rem;">How tools like ChatGPT and Gemini are transforming the software
-                            development landscape.</p>
-                        <a href="#" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Read More
-                            &rarr;</a>
-                    </div>
-                </article>
+            <!-- Category Filters -->
+            <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center;">
+                <button class="btn btn-outline filter-btn active" onclick="filterNews('all')">All</button>
+                <button class="btn btn-outline filter-btn" onclick="filterNews('data-science')">Data Science</button>
+                <button class="btn btn-outline filter-btn" onclick="filterNews('ai-ml')">AI & ML</button>
+                <button class="btn btn-outline filter-btn" onclick="filterNews('devops')">DevOps</button>
+                <button class="btn btn-outline filter-btn" onclick="filterNews('cloud')">Cloud</button>
+                <button class="btn btn-outline filter-btn" onclick="filterNews('python')">Python</button>
+                <button class="btn btn-outline filter-btn" onclick="filterNews('tech-news')">Tech News</button>
+            </div>
 
-                <!-- Article 2 -->
-                <article class="card" style="padding: 0; overflow: hidden;">
-                    <div
-                        style="height: 200px; background: #0f172a; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-cloud fa-3x"></i>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">CLOUD COMPUTING</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Serverless Architecture in 2024</h3>
-                        <p style="font-size: 0.9rem;">Why more companies are moving towards serverless solutions for
-                            scalability.</p>
-                        <a href="#" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Read More
-                            &rarr;</a>
-                    </div>
-                </article>
+            <!-- Loading State -->
+            <div id="newsLoading" style="text-align: center; padding: 3rem;">
+                <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--accent);"></i>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">Loading latest tech news...</p>
+            </div>
 
-                <!-- Article 3 -->
-                <article class="card" style="padding: 0; overflow: hidden;">
-                    <div
-                        style="height: 200px; background: #334155; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-shield-alt fa-3x"></i>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">CYBERSECURITY</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Zero Trust Security Model</h3>
-                        <p style="font-size: 0.9rem;">Understanding the principles of Zero Trust and why it's essential
-                            today.</p>
-                        <a href="#" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Read More
-                            &rarr;</a>
-                    </div>
-                </article>
+            <!-- Error State -->
+            <div id="newsError" style="display: none; text-align: center; padding: 3rem;">
+                <i class="fas fa-exclamation-circle fa-3x" style="color: #dc3545;"></i>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">Failed to load news. Please check your
+                    connection and try again.</p>
+                <button onclick="loadNews()" class="btn btn-primary" style="margin-top: 1rem;">Retry</button>
+            </div>
 
-                <!-- Article 4 -->
-                <article class="card" style="padding: 0; overflow: hidden;">
-                    <div
-                        style="height: 200px; background: #475569; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-code fa-3x"></i>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">WEB DEV</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">WebAssembly: The Future?</h3>
-                        <p style="font-size: 0.9rem;">Is WebAssembly going to replace JavaScript? Let's dive deep.</p>
-                        <a href="#" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Read More
-                            &rarr;</a>
-                    </div>
-                </article>
-
-                <!-- Article 5 -->
-                <article class="card" style="padding: 0; overflow: hidden;">
-                    <div
-                        style="height: 200px; background: #64748b; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-mobile-alt fa-3x"></i>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">MOBILE</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">Flutter vs React Native</h3>
-                        <p style="font-size: 0.9rem;">A comprehensive comparison for 2024 mobile app development.</p>
-                        <a href="#" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Read More
-                            &rarr;</a>
-                    </div>
-                </article>
-
-                <!-- Article 6 -->
-                <article class="card" style="padding: 0; overflow: hidden;">
-                    <div
-                        style="height: 200px; background: #94a3b8; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-database fa-3x"></i>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 600;">DATA</span>
-                        <h3 style="font-size: 1.25rem; margin-top: 0.5rem;">The Era of Big Data</h3>
-                        <p style="font-size: 0.9rem;">How big data analytics is driving business decisions globally.</p>
-                        <a href="#" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Read More
-                            &rarr;</a>
-                    </div>
-                </article>
+            <!-- News Grid -->
+            <div class="grid-3" id="newsGrid" style="display: none;">
+                <!-- Articles will be loaded here dynamically -->
             </div>
         </div>
     </section>
+
+    <script>
+        let allArticles = [];
+        let currentCategory = 'all';
+
+        // RSS Feed URLs - Mix of Medium (majority) + Trusted Tech Sources
+        const RSS_FEEDS = {
+            // Medium feeds for specific topics (majority)
+            'data-science': 'https://medium.com/feed/tag/data-science',
+            'data-engineering': 'https://medium.com/feed/tag/data-engineering',
+            'ai-ml': 'https://medium.com/feed/tag/machine-learning',
+            'devops': 'https://medium.com/feed/tag/devops',
+            'cloud': 'https://medium.com/feed/tag/cloud-computing',
+            'javascript': 'https://medium.com/feed/tag/javascript',
+            'python': 'https://medium.com/feed/tag/python',
+
+            // Trusted tech news sources
+            'tech-news': 'https://techcrunch.com/feed/',
+            'startup': 'https://venturebeat.com/feed/',
+            'dev': 'https://stackoverflow.blog/feed/'
+        };
+
+        const CATEGORY_LABELS = {
+            'data-science': 'DATA SCIENCE',
+            'data-engineering': 'DATA ENGINEERING',
+            'ai-ml': 'AI & ML',
+            'devops': 'DEVOPS',
+            'cloud': 'CLOUD',
+            'javascript': 'JAVASCRIPT',
+            'python': 'PYTHON',
+            'tech-news': 'TECH NEWS',
+            'startup': 'STARTUPS',
+            'dev': 'DEVELOPMENT'
+        };
+
+        async function fetchRSSFeed(category, feedUrl) {
+            const RSS2JSON_API = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+            try {
+                const response = await fetch(`${RSS2JSON_API}${encodeURIComponent(feedUrl)}`);
+                const data = await response.json();
+
+                if (data.status === 'ok') {
+                    return data.items.slice(0, 3).map(item => ({
+                        ...item,
+                        category: category,
+                        categoryLabel: CATEGORY_LABELS[category],
+                        source: data.feed?.title || 'Tech News'
+                    }));
+                }
+            } catch (error) {
+                console.error(`Error fetching ${category}:`, error);
+            }
+            return [];
+        }
+
+        async function loadNews() {
+            try {
+                document.getElementById('newsLoading').style.display = 'block';
+                document.getElementById('newsError').style.display = 'none';
+                document.getElementById('newsGrid').style.display = 'none';
+
+                // Fetch from all RSS feeds (Medium + trusted sources)
+                const feedPromises = Object.entries(RSS_FEEDS).map(([category, url]) =>
+                    fetchRSSFeed(category, url)
+                );
+
+                const results = await Promise.all(feedPromises);
+                allArticles = results.flat().filter(article => article.title);
+
+                // Shuffle articles for variety
+                allArticles = allArticles.sort(() => Math.random() - 0.5);
+
+                document.getElementById('newsLoading').style.display = 'none';
+
+                if (allArticles.length === 0) {
+                    throw new Error('No articles loaded');
+                }
+
+                displayArticles(allArticles);
+
+            } catch (error) {
+                console.error('Error loading news:', error);
+                document.getElementById('newsLoading').style.display = 'none';
+                document.getElementById('newsError').style.display = 'block';
+            }
+        }
+
+        function displayArticles(articles) {
+            const newsGrid = document.getElementById('newsGrid');
+
+            if (articles.length === 0) {
+                newsGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: var(--text-secondary);">No articles found for this category.</p>';
+                newsGrid.style.display = 'block';
+                return;
+            }
+
+            newsGrid.innerHTML = articles.slice(0, 12).map(article => {
+                const thumbnail = article.thumbnail || article.enclosure?.link || 'https://via.placeholder.com/400x200/667eea/ffffff?text=Tech+News';
+                const description = article.description ? article.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...' : 'Click to read the full article.';
+                const pubDate = article.pubDate ? new Date(article.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+                const author = article.author || article.source || 'Tech News';
+
+                return `
+                    <article class="card" style="padding: 0; overflow: hidden;">
+                        <div style="height: 200px; background: url('${thumbnail}') center/cover; background-color: #e2e8f0; position: relative;">
+                            <div style="position: absolute; top: 1rem; left: 1rem; background: rgba(102, 126, 234, 0.95); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.7rem; font-weight: 600;">
+                                ${article.categoryLabel}
+                            </div>
+                        </div>
+                        <div style="padding: 1.5rem;">
+                            <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                <span><i class="fas fa-newspaper"></i> ${author}</span>
+                                <span><i class="fas fa-calendar"></i> ${pubDate}</span>
+                            </div>
+                            <h3 style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.4; min-height: 2.8rem;">${article.title}</h3>
+                            <p style="font-size: 0.9rem; margin-top: 0.75rem; color: var(--text-secondary); line-height: 1.5;">${description}</p>
+                            <a href="${article.link}" target="_blank" rel="noopener noreferrer" 
+                               style="color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-top: 1rem; display: inline-block; textdecoration: none;">
+                                Read Article &rarr;
+                            </a>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            newsGrid.style.display = 'grid';
+        }
+
+        function filterNews(category) {
+            currentCategory = category;
+
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter articles
+            if (category === 'all') {
+                displayArticles(allArticles);
+            } else {
+                const filtered = allArticles.filter(article => article.category === category);
+                displayArticles(filtered);
+            }
+        }
+
+        // Load news on page load
+        window.addEventListener('load', loadNews);
+    </script>
 
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="logo" style="color: white;">
-                        <img src="assets/logo-full.png" alt="Intern Academy - A Launchpad to Real-World Skills" style="height: 120px; width: auto;">
+                        <img src="assets/logo-full.png" alt="Intern Academy - A Launchpad to Real-World Skills"
+                            style="height: 120px; width: auto;">
                     </a>
                     <p>Empowering the next generation of professionals across diverse industries through premium
                         local internships and world-class education.</p>
