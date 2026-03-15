@@ -171,43 +171,81 @@ async function handleCompanyRegistration(event) {
         return;
     }
 
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const companyName = document.getElementById('companyName').value.trim();
+    const contactPerson = document.getElementById('contactPerson').value.trim();
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
+        alert('❌ Passwords do not match!\n\nPlease make sure both password fields are the same.');
+        return;
+    }
+
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Submitting...';
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
     submitBtn.disabled = true;
 
-    const formData = {
-        company_name: document.getElementById('companyName').value.trim(),
-        contact_person: document.getElementById('contactPerson').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone').value.trim(),
-        website: document.getElementById('website').value.trim(),
-        industry: document.getElementById('industry').value.trim(),
-        company_size: document.getElementById('companySize').value,
-        description: document.getElementById('description').value.trim()
-    };
-
     try {
-        const { data, error } = await window.supabaseClient
+        // Step 1: Sign up user with Supabase Auth
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    company_name: companyName,
+                    full_name: contactPerson
+                },
+                emailRedirectTo: `${window.location.origin}/login.html`
+            }
+        });
+
+        if (authError) throw authError;
+
+        // Step 2: Save additional company data to company_registrations table
+        const formData = {
+            user_id: authData.user.id,
+            company_name: companyName,
+            contact_person: contactPerson,
+            email: email,
+            phone: document.getElementById('phone').value.trim(),
+            website: document.getElementById('website').value.trim(),
+            industry: document.getElementById('industry').value.trim(),
+            company_size: document.getElementById('companySize').value,
+            description: document.getElementById('description').value.trim()
+        };
+
+        const { data, error } = await supabase
             .from('company_registrations')
             .insert([formData])
             .select();
 
         if (error) throw error;
 
-        alert('🎉 Company registration successful!\n\nOur team will review your application and contact you within 2-3 business days.');
+        // Success!
+        alert('🎉 Company Registration Successful!\n\n✉️ Please check your email to verify your account.\n\nWe\'ve sent a verification link to: ' + email + '\n\nAfter verifying, you can log in to your dashboard.');
+        
         event.target.reset();
+
+        // Redirect to verification page
+        setTimeout(() => {
+            window.location.href = 'verify-email.html?email=' + encodeURIComponent(email);
+        }, 2000);
 
     } catch (error) {
         console.error('Error:', error);
 
-        if (error.code === '23505') {
+        if (error.message && error.message.toLowerCase().includes('already registered')) {
+            alert('❌ This email is already registered.\n\nPlease login or use the "Forgot Password" option.');
+        } else if (error.code === '23505') {
             alert('❌ This company email is already registered.');
         } else {
-            alert('❌ Registration failed. Please try again or contact support.');
+            alert(`❌ Registration failed. Please try again or contact support.\n\nError: ${error.message || 'Unknown error'}`);
         }
     } finally {
-        submitBtn.textContent = originalText;
+        submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
     }
 }

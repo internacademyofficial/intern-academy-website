@@ -274,6 +274,10 @@
             if (!session) {
                 localStorage.setItem('redirectAfterLogin', window.location.pathname);
                 window.location.replace('login.html');
+            } else if (!session.user.email_confirmed_at) {
+                alert('⚠️ Email Not Verified\n\nPlease verify your email first.');
+                await window.supabaseClient.auth.signOut();
+                window.location.replace('login.html');
             }
         })();
 
