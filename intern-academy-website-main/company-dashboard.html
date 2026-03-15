@@ -230,7 +230,7 @@
                     <i class="fas fa-lock" style="color: var(--accent);"></i> Change Password
                 </h2>
 
-                <form id="passwordChangeForm" onsubmit="handlePasswordChange(event)">
+                <form id="passwordChangeForm" onsubmit="event.preventDefault(); handlePasswordChange(event);">
                     <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 500px;">
                         <div>
                             <label class="form-label">New Password *</label>

@@ -79,7 +79,7 @@ async function handleStudentRegistration(event) {
 
     try {
         // Step 1: Sign up user with Supabase Auth
-        const { data: authData, error: authError } = await window.supabaseClient.auth.signUp({
+        const { data: authData, error: authError } = await supabase.auth.signUp({
             email: email,
             password: password,
             options: {

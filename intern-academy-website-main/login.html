@@ -49,7 +49,7 @@
                     <p style="color: var(--text-secondary);">Log in to access your Intern Academy dashboard</p>
                 </div>
 
-                <form id="loginForm" onsubmit="handleLogin(event)">
+                <form id="loginForm" onsubmit="event.preventDefault(); handleLogin(event);">
                     <div style="margin-bottom: 1rem;">
                         <label class="form-label">Email Address *</label>
                         <input type="email" id="email" class="form-control" placeholder="your@example.com" required>
