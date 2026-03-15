@@ -87,14 +87,14 @@ async function handleStudentRegistration(event) {
                     full_name: fullName,
                     phone: phone
                 },
-                emailRedirectTo: `${window.location.origin}/dashboard.html`
+                emailRedirectTo: `${window.location.origin}/login.html`
             }
         });
 
         if (authError) throw authError;
 
         // Step 2: Save additional profile data to student_registrations table
-        const { data: profileData, error: profileError } = await window.supabaseClient
+        const { data: profileData, error: profileError } = await supabase
             .from('student_registrations')
             .insert([{
                 user_id: authData.user.id,

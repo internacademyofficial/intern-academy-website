@@ -317,6 +317,22 @@
     <script src="app.js"></script>
 
     <script>
+        // Immediate session guard (redirects before page fully loads if no session)
+        (async function enforceSession() {
+            const session = await checkAuth();
+            if (!session) {
+                localStorage.setItem('redirectAfterLogin', window.location.pathname);
+                window.location.replace('login.html');
+            }
+        })();
+
+        // Watch for logouts in another tab
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_OUT' || !session) {
+                window.location.replace('login.html');
+            }
+        });
+
         let currentCompany = null;
         let allApplications = [];
         let currentFilter = 'all';
@@ -325,8 +341,8 @@
 
         async function loadDashboard() {
             try {
-                // Check if user is logged in
-                const session = await protectPage();
+                // Double check session inside load event just to extract user
+                const session = await checkAuth();
                 if (!session) return;
 
                 currentUser = session.user;

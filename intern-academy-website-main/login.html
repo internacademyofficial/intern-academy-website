@@ -197,6 +197,15 @@
 
         // Check if already logged in
         window.addEventListener('load', async () => {
+            // Intercept email verification redirect to prevent auto-login
+            if (window.location.hash.includes('type=signup')) {
+                // Sign out to clear the session automatically created by Supabase from the URL token
+                await window.supabaseClient.auth.signOut();
+                window.location.hash = ''; // Clear the hash from the URL
+                alert('✅ Email verified successfully!\n\nPlease log in with your credentials.');
+                return; // Stop execution so they stay on the login page
+            }
+
             const session = await checkAuth();
             if (session) {
                 window.location.href = 'dashboard.html';
