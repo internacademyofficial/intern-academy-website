@@ -289,6 +289,82 @@ CREATE TRIGGER update_internship_applications_updated_at
 
 
 -- ============================================================
+-- 9. AUTH USER TRIGGER
+-- Automatically creates a profile row in student/company table
+-- ============================================================
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public
+AS $$
+DECLARE
+  v_full_name       TEXT;
+  v_company_name    TEXT;
+  v_contact_person  TEXT;
+  v_phone           TEXT;
+  v_website         TEXT;
+  v_industry        TEXT;
+  v_company_size    TEXT;
+  v_description     TEXT;
+  v_college_name    TEXT;
+  v_field_of_study  TEXT;
+  v_skills          TEXT;
+  v_interests       TEXT;
+  v_grad_year       INTEGER;
+BEGIN
+  -- Extract metadata fields safely
+  v_full_name      := COALESCE(NEW.raw_user_meta_data->>'full_name', split_part(NEW.email, '@', 1));
+  v_company_name   := NULLIF(TRIM(COALESCE(NEW.raw_user_meta_data->>'company_name', '')), '');
+  v_contact_person := COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'contact_person', split_part(NEW.email, '@', 1));
+  v_phone          := NEW.raw_user_meta_data->>'phone';
+  v_website        := NEW.raw_user_meta_data->>'website';
+  v_industry       := NEW.raw_user_meta_data->>'industry';
+  v_company_size   := NEW.raw_user_meta_data->>'company_size';
+  v_description    := NEW.raw_user_meta_data->>'description';
+  v_college_name   := NEW.raw_user_meta_data->>'college_name';
+  v_field_of_study := NEW.raw_user_meta_data->>'field_of_study';
+  v_skills         := NEW.raw_user_meta_data->>'skills';
+  v_interests      := NEW.raw_user_meta_data->>'interests';
+
+  -- Safe integer cast for graduation year (guard against NaN / empty string)
+  BEGIN
+    v_grad_year := NULLIF(TRIM(COALESCE(NEW.raw_user_meta_data->>'graduation_year', '')), '')::INTEGER;
+  EXCEPTION WHEN OTHERS THEN
+    v_grad_year := NULL;
+  END;
+
+  IF v_company_name IS NOT NULL THEN
+    -- Company registration
+    INSERT INTO public.company_registrations
+      (user_id, email, company_name, contact_person, phone, website, industry, company_size, description, status)
+    VALUES
+      (NEW.id, NEW.email, v_company_name, v_contact_person, v_phone, v_website, v_industry, v_company_size, v_description, 'approved')
+    ON CONFLICT (user_id) DO NOTHING;
+  ELSE
+    -- Student registration
+    INSERT INTO public.student_registrations
+      (user_id, email, full_name, phone, college_name, graduation_year, field_of_study, skills, interests)
+    VALUES
+      (NEW.id, NEW.email, v_full_name, v_phone, v_college_name, v_grad_year, v_field_of_study, v_skills, v_interests)
+    ON CONFLICT (user_id) DO NOTHING;
+  END IF;
+
+  RETURN NEW;
+
+EXCEPTION WHEN OTHERS THEN
+  -- Log but never block the auth.users insert
+  RAISE WARNING 'handle_new_user trigger error for user %: %', NEW.id, SQLERRM;
+  RETURN NEW;
+END;
+$$;
+
+-- Attach trigger to auth.users
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+
+-- ============================================================
 -- DONE! All tables, policies, indexes, storage, and triggers
 -- are set up for Intern Academy.
 -- ============================================================

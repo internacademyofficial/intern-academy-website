@@ -5,18 +5,12 @@ const SUPABASE_URL = 'https://utwdwlnvempgfrfocrps.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0d2R3bG52ZW1wZ2ZyZm9jcnBzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5ODQ2OTgsImV4cCI6MjA4ODU2MDY5OH0._AxIYZnLYIpUuaBQkfIbSlNWjFgrqbgE6unVpR6FWu4';
 
 // Initialize Supabase client
-// The Supabase CDN exposes its library namespace on window.supabase.
-// We call createClient() to produce the actual *client* object and store
-// it on window.supabaseClient so the two don't get confused.
 window.supabaseClient = null;
 
-// Function to initialize Supabase when library is loaded
 function initializeSupabase() {
-    // The CDN UMD build exposes the library as window.supabase with a createClient method
     const supabaseLib = window.supabase;
     if (supabaseLib && typeof supabaseLib.createClient === 'function') {
         window.supabaseClient = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        // Overwrite window.supabase with the client so bare `supabase` references work
         window.supabase = window.supabaseClient;
         console.log('✅ Supabase client initialized successfully');
         return true;
@@ -26,223 +20,203 @@ function initializeSupabase() {
     }
 }
 
-// Try to initialize immediately (works when script order is correct)
 if (!initializeSupabase()) {
-    // Fallback: wait for page load + small delay
     window.addEventListener('load', () => {
         setTimeout(() => {
             if (!initializeSupabase()) {
-                console.error('❌ Failed to initialize Supabase client. The Supabase CDN script must be loaded before supabase-config.js.');
+                console.error('❌ Failed to initialize Supabase client.');
             }
         }, 100);
     });
 }
 
-// Form submission handlers
-
-/**
- * Handle Student Registration Form Submission with Authentication
- */
+// ─────────────────────────────────────────────────────────────
+// STUDENT REGISTRATION
+// Packages all form data into user_metadata during signUp.
+// The database trigger handle_new_user() creates the profile row.
+// ─────────────────────────────────────────────────────────────
 async function handleStudentRegistration(event) {
     event.preventDefault();
 
-    // Check if Supabase is initialized
     if (!window.supabaseClient) {
         alert('❌ Connection error. Please refresh the page and try again.');
-        console.error('Supabase client not initialized');
         return;
     }
 
-    // Get form values
-    const fullName = document.getElementById('fullName').value.trim();
-    const email = document.getElementById('email').value.trim().toLowerCase();
-    const password = document.getElementById('password').value;
+    const email           = document.getElementById('email').value.trim().toLowerCase();
+    const password        = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const phone = document.getElementById('phone').value.trim();
-    const collegeName = document.getElementById('collegeName').value.trim();
-    const graduationYear = parseInt(document.getElementById('graduationYear').value);
-    const fieldOfStudy = document.getElementById('fieldOfStudy').value.trim();
-    const skills = document.getElementById('skills').value.trim();
-    const interests = document.getElementById('interests').value.trim();
 
-    // Validate passwords match
     if (password !== confirmPassword) {
         alert('❌ Passwords do not match!\n\nPlease make sure both password fields are the same.');
         return;
     }
 
-    // Show loading state
+    // Guard against NaN — parseInt('') === NaN which crashes the Postgres trigger
+    const gradRaw        = document.getElementById('graduationYear').value;
+    const graduationYear = gradRaw ? (parseInt(gradRaw) || null) : null;
+
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
+    const origText  = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
-    submitBtn.disabled = true;
+    submitBtn.disabled  = true;
 
     try {
-        // Step 1: Sign up user with Supabase Auth
-        const { data: authData, error: authError } = await window.supabaseClient.auth.signUp({
-            email: email,
-            password: password,
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
             options: {
                 data: {
-                    full_name: fullName,
-                    phone: phone
+                    full_name:       document.getElementById('fullName').value.trim(),
+                    phone:           document.getElementById('phone').value.trim(),
+                    college_name:    document.getElementById('collegeName').value.trim(),
+                    graduation_year: graduationYear,
+                    field_of_study:  document.getElementById('fieldOfStudy').value.trim(),
+                    skills:          document.getElementById('skills').value.trim(),
+                    interests:       document.getElementById('interests').value.trim()
                 },
                 emailRedirectTo: `${window.location.origin}/dashboard.html`
             }
         });
 
-        if (authError) throw authError;
+        if (error) throw error;
 
-        // Step 2: Save additional profile data to student_registrations table
-        const { data: profileData, error: profileError } = await window.supabaseClient
-            .from('student_registrations')
-            .insert([{
-                user_id: authData.user.id,
-                full_name: fullName,
-                email: email,
-                phone: phone,
-                college_name: collegeName,
-                graduation_year: graduationYear,
-                field_of_study: fieldOfStudy,
-                skills: skills,
-                interests: interests
-            }])
-            .select();
-
-        if (profileError) throw profileError;
-
-        // Success!
         alert('🎉 Registration Successful!\n\n✉️ Please check your email to verify your account.\n\nWe\'ve sent a verification link to: ' + email + '\n\nAfter verifying, you can log in to your dashboard.');
-
-        // Reset form
         event.target.reset();
-
-        // Redirect to verification page
         setTimeout(() => {
             window.location.href = 'verify-email.html?email=' + encodeURIComponent(email);
         }, 2000);
 
     } catch (error) {
-        // Detailed error logging for debugging
-        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        console.error('❌ STUDENT REGISTRATION ERROR');
-        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        console.error('Full Error:', error);
-        console.error('Error Code:', error.code);
-        console.error('Error Message:', error.message);
-        console.error('Error Details:', error.details);
-        console.error('Error Hint:', error.hint);
-        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-
-        // User-friendly error messages
-        if (error.message && error.message.toLowerCase().includes('already registered')) {
-            alert('❌ This email is already registered.\n\nPlease login or use the "Forgot Password" option.');
-        } else if (error.message && error.message.toLowerCase().includes('password')) {
-            alert('❌ Password Error\n\nPassword must be at least 6 characters long.');
-        } else if (error.code === '23505') {
-            alert('❌ This email is already registered.\n\nPlease use a different email or login to your existing account.');
-        } else if (error.message && error.message.toLowerCase().includes('cors')) {
-            alert('❌ Connection Error (CORS)\n\nThe website domain needs to be configured in the database.\nPlease contact the administrator at contact@internacademy.co.in');
-        } else if (error.code === '42P01') {
-            alert('❌ Database Configuration Error\n\nThe registration system is not fully set up.\nPlease contact support at contact@internacademy.co.in');
-        } else if (error.code === '42501') {
-            alert('❌ Permission Error\n\nDatabase access is restricted.\nPlease contact support at contact@internacademy.co.in');
-        } else if (error.message && error.message.toLowerCase().includes('fetch')) {
-            alert('❌ Network Error\n\nCould not connect to the database.\nPlease check your internet connection and try again.');
-        } else {
-            alert(`❌ Registration failed. Please try again or contact support.\n\nError Code: ${error.code || 'NETWORK_ERROR'}\nError: ${error.message || 'Unknown error'}\n\nContact: contact@internacademy.co.in`);
-        }
+        console.error('❌ STUDENT REGISTRATION ERROR', error);
+        _handleRegistrationError(error, email);
     } finally {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
+        submitBtn.innerHTML = origText;
+        submitBtn.disabled  = false;
     }
 }
 
-/**
- * Handle Company Registration Form Submission
- */
+// ─────────────────────────────────────────────────────────────
+// COMPANY REGISTRATION
+// Packages all form data into user_metadata during signUp.
+// The database trigger handle_new_user() creates the profile row.
+// ─────────────────────────────────────────────────────────────
 async function handleCompanyRegistration(event) {
     event.preventDefault();
 
-    // Check if Supabase is initialized
     if (!window.supabaseClient) {
         alert('❌ Connection error. Please refresh the page and try again.');
-        console.error('Supabase client not initialized');
+        return;
+    }
+
+    const email           = document.getElementById('email').value.trim().toLowerCase();
+    const password        = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+        alert('❌ Passwords do not match!\n\nPlease make sure both password fields are the same.');
         return;
     }
 
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Submitting...';
-    submitBtn.disabled = true;
-
-    const formData = {
-        company_name: document.getElementById('companyName').value.trim(),
-        contact_person: document.getElementById('contactPerson').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone').value.trim(),
-        website: document.getElementById('website').value.trim(),
-        industry: document.getElementById('industry').value.trim(),
-        company_size: document.getElementById('companySize').value,
-        description: document.getElementById('description').value.trim()
-    };
+    const origText  = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+    submitBtn.disabled  = true;
 
     try {
-        const { data, error } = await window.supabaseClient
-            .from('company_registrations')
-            .insert([formData])
-            .select();
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    company_name:  document.getElementById('companyName').value.trim(),
+                    full_name:     document.getElementById('contactPerson').value.trim(),
+                    phone:         document.getElementById('phone').value.trim(),
+                    website:       document.getElementById('website').value.trim(),
+                    industry:      document.getElementById('industry').value.trim(),
+                    company_size:  document.getElementById('companySize').value,
+                    description:   document.getElementById('description').value.trim()
+                },
+                emailRedirectTo: `${window.location.origin}/company-dashboard.html`
+            }
+        });
 
         if (error) throw error;
 
-        alert('🎉 Company registration successful!\n\nOur team will review your application and contact you within 2-3 business days.');
+        alert('🎉 Company Registration Successful!\n\n✉️ Please check your email to verify your account.\n\nWe\'ve sent a verification link to: ' + email + '\n\nAfter verifying, you can log in to your dashboard.');
         event.target.reset();
+        setTimeout(() => {
+            window.location.href = 'verify-email.html?email=' + encodeURIComponent(email);
+        }, 2000);
 
     } catch (error) {
-        console.error('Error:', error);
-
-        if (error.code === '23505') {
-            alert('❌ This company email is already registered.');
-        } else {
-            alert('❌ Registration failed. Please try again or contact support.');
-        }
+        console.error('❌ COMPANY REGISTRATION ERROR', error);
+        _handleRegistrationError(error, email);
     } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        submitBtn.innerHTML = origText;
+        submitBtn.disabled  = false;
     }
 }
 
 /**
- * Handle Contact Form Submission
+ * Shared error handler for both registration flows.
+ * Only surfaces specific known Supabase error codes.
  */
+function _handleRegistrationError(error, email) {
+    const code    = error.code || '';
+    const message = (error.message || '').toLowerCase();
+
+    if (message.includes('already registered') || code === '23505') {
+        alert('❌ This email is already registered.\n\nPlease login or use the "Forgot Password" option.');
+    } else if (message.includes('password')) {
+        alert('❌ Password Error\n\nPassword must be at least 6 characters long.');
+    } else if (message.includes('cors')) {
+        alert('❌ Connection Error\n\nThe website domain has not been added to the allowed list.\nPlease contact the administrator at contact@internacademy.co.in');
+    } else if (code === '42P01') {
+        alert('❌ Database Configuration Error\n\nThe system is not fully set up.\nPlease contact support at contact@internacademy.co.in');
+    } else if (message.includes('fetch') || message.includes('network')) {
+        alert('❌ Network Error\n\nCould not connect to the server.\nPlease check your internet connection and try again.');
+    } else if (code === '42501') {
+        // Auth user was created — a secondary DB action failed. Treat as success.
+        alert('✅ Account Created!\n\n✉️ Please check your email to verify your account.\nAfter verifying you can log in.');
+        if (email) {
+            setTimeout(() => {
+                window.location.href = 'verify-email.html?email=' + encodeURIComponent(email);
+            }, 2000);
+        }
+    } else {
+        alert(`❌ Registration failed.\n\nError: ${error.message || 'Unknown error'}\nCode: ${code || 'N/A'}\n\nContact: contact@internacademy.co.in`);
+    }
+}
+
+// ─────────────────────────────────────────────────────────────
+// CONTACT FORM
+// ─────────────────────────────────────────────────────────────
 async function handleContactForm(event) {
     event.preventDefault();
 
-    // Check if Supabase is initialized
     if (!window.supabaseClient) {
         alert('❌ Connection error. Please refresh the page and try again.');
-        console.error('Supabase client not initialized');
         return;
     }
 
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
+    const origText  = submitBtn.textContent;
     submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
+    submitBtn.disabled    = true;
 
     const formData = {
-        name: document.getElementById('name').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone')?.value.trim() || null,
+        name:    document.getElementById('name').value.trim(),
+        email:   document.getElementById('email').value.trim().toLowerCase(),
+        phone:   document.getElementById('phone')?.value.trim() || null,
         subject: document.getElementById('subject')?.value.trim() || 'General Inquiry',
         message: document.getElementById('message').value.trim()
     };
 
     try {
-        const { data, error } = await window.supabaseClient
+        const { error } = await window.supabaseClient
             .from('contact_messages')
-            .insert([formData])
-            .select();
+            .insert([formData]);
 
         if (error) throw error;
 
@@ -250,17 +224,17 @@ async function handleContactForm(event) {
         event.target.reset();
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Contact form error:', error);
         alert('❌ Failed to send message. Please try again or email us directly at contact@internacademy.co.in');
     } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        submitBtn.textContent = origText;
+        submitBtn.disabled    = false;
     }
 }
 
-/**
- * Handle Newsletter Subscription
- */
+// ─────────────────────────────────────────────────────────────
+// NEWSLETTER SUBSCRIPTION
+// ─────────────────────────────────────────────────────────────
 async function subscribeToNewsletter(email) {
     if (!email || !email.includes('@')) {
         alert('❌ Please enter a valid email address.');
@@ -268,10 +242,9 @@ async function subscribeToNewsletter(email) {
     }
 
     try {
-        const { data, error } = await window.supabaseClient
+        const { error } = await window.supabaseClient
             .from('newsletter_subscriptions')
-            .insert([{ email: email.trim().toLowerCase() }])
-            .select();
+            .insert([{ email: email.trim().toLowerCase() }]);
 
         if (error) {
             if (error.code === '23505') {
@@ -281,84 +254,88 @@ async function subscribeToNewsletter(email) {
             throw error;
         }
 
-        alert('🎉 Successfully subscribed to our newsletter!\n\nWe\'ll keep you updated with the latest internships and courses.');
+        alert('🎉 Successfully subscribed!\n\nWe\'ll keep you updated with the latest internships and courses.');
         return true;
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Newsletter error:', error);
         alert('❌ Subscription failed. Please try again.');
         return false;
     }
 }
 
-/**
- * Handle Internship Application Form
- */
+// ─────────────────────────────────────────────────────────────
+// INTERNSHIP APPLICATION
+// ─────────────────────────────────────────────────────────────
 async function handleInternshipApplication(event) {
     event.preventDefault();
 
+    const session = await checkAuth();
+    if (!session) {
+        alert('⚠️ Please log in or register to apply for internships.');
+        localStorage.setItem('redirectAfterLogin', window.location.pathname);
+        window.location.href = 'login.html';
+        return;
+    }
+
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
+    const origText  = submitBtn.textContent;
     submitBtn.textContent = 'Applying...';
-    submitBtn.disabled = true;
+    submitBtn.disabled    = true;
 
     const formData = {
-        student_name: document.getElementById('studentName').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone').value.trim(),
+        user_id:          session.user.id,
+        student_name:     document.getElementById('studentName').value.trim(),
+        email:            document.getElementById('email').value.trim().toLowerCase(),
+        phone:            document.getElementById('phone').value.trim(),
         internship_title: document.getElementById('internshipTitle').value.trim(),
-        company_name: document.getElementById('companyName').value.trim(),
-        cover_letter: document.getElementById('coverLetter')?.value.trim() || null,
-        resume_url: document.getElementById('resumeUrl')?.value.trim() || null
+        company_name:     document.getElementById('companyName').value.trim(),
+        cover_letter:     document.getElementById('coverLetter')?.value.trim() || null,
+        resume_url:       document.getElementById('resumeUrl')?.value.trim() || null
     };
 
     try {
-        const { data, error } = await window.supabaseClient
+        const { error } = await window.supabaseClient
             .from('internship_applications')
-            .insert([formData])
-            .select();
+            .insert([formData]);
 
         if (error) throw error;
 
         alert('🎉 Application submitted successfully!\n\nThe company will review your application and contact you if selected.');
         event.target.reset();
 
-        // Optional: Redirect back to internships page
-        // window.location.href = 'internships.html';
-
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Application error:', error);
         alert('❌ Application failed. Please try again.');
     } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        submitBtn.textContent = origText;
+        submitBtn.disabled    = false;
     }
 }
 
-/**
- * Handle Course Enrollment
- */
+// ─────────────────────────────────────────────────────────────
+// COURSE ENROLLMENT
+// ─────────────────────────────────────────────────────────────
 async function handleCourseEnrollment(event) {
     event.preventDefault();
 
     const submitBtn = event.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
+    const origText  = submitBtn.textContent;
     submitBtn.textContent = 'Enrolling...';
-    submitBtn.disabled = true;
+    submitBtn.disabled    = true;
 
     const formData = {
-        student_name: document.getElementById('studentName').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone').value.trim(),
-        course_name: document.getElementById('courseName').value.trim(),
+        student_name:    document.getElementById('studentName').value.trim(),
+        email:           document.getElementById('email').value.trim().toLowerCase(),
+        phone:           document.getElementById('phone').value.trim(),
+        course_name:     document.getElementById('courseName').value.trim(),
         course_category: document.getElementById('courseCategory')?.value || null
     };
 
     try {
-        const { data, error } = await window.supabaseClient
+        const { error } = await window.supabaseClient
             .from('course_enrollments')
-            .insert([formData])
-            .select();
+            .insert([formData]);
 
         if (error) throw error;
 
@@ -366,49 +343,27 @@ async function handleCourseEnrollment(event) {
         event.target.reset();
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Enrollment error:', error);
         alert('❌ Enrollment failed. Please try again.');
     } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        submitBtn.textContent = origText;
+        submitBtn.disabled    = false;
     }
 }
 
-/**
- * Validate form inputs (client-side validation)
- */
+// ─────────────────────────────────────────────────────────────
+// VALIDATION HELPERS
+// ─────────────────────────────────────────────────────────────
 function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function validatePhone(phone) {
-    const re = /^[0-9]{10}$/;
-    return re.test(phone.replace(/\s/g, ''));
+    return /^[0-9]{10}$/.test(phone.replace(/\s/g, ''));
 }
 
-// Add real-time email validation
-function addEmailValidation(emailInputId) {
-    const emailInput = document.getElementById(emailInputId);
-    if (emailInput) {
-        emailInput.addEventListener('blur', function () {
-            if (this.value && !validateEmail(this.value)) {
-                this.style.borderColor = 'red';
-                alert('Please enter a valid email address');
-            } else {
-                this.style.borderColor = '';
-            }
-        });
-    }
-}
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('Supabase integration loaded');
-
-    // Add email validation to all email inputs
-    const emailInputs = document.querySelectorAll('input[type="email"]');
-    emailInputs.forEach(input => {
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input[type="email"]').forEach(input => {
         input.addEventListener('blur', function () {
             if (this.value && !validateEmail(this.value)) {
                 this.setCustomValidity('Please enter a valid email address');

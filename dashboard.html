@@ -185,7 +185,7 @@
                     <i class="fas fa-lock" style="color: var(--accent);"></i> Change Password
                 </h2>
 
-                <form id="passwordChangeForm" onsubmit="handlePasswordChange(event)">
+                <form id="passwordChangeForm" onsubmit="event.preventDefault(); handlePasswordChange(event);">
                     <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 500px;">
                         <div>
                             <label class="form-label">New Password *</label>
@@ -268,14 +268,39 @@
     <script src="app.js"></script>
 
     <script>
+        // Immediate session guard (redirects before page fully loads if no session)
+        let activeSession = null;
+        (async function enforceSession() {
+            const session = await checkAuth();
+            if (!session) {
+                localStorage.setItem('redirectAfterLogin', window.location.pathname);
+                window.location.replace('login.html');
+                return;
+            }
+            if (!session.user.email_confirmed_at) {
+                alert('⚠️ Email Not Verified\n\nPlease verify your email first.');
+                await window.supabaseClient.auth.signOut();
+                window.location.replace('login.html');
+                return;
+            }
+            activeSession = session;
+        })();
+
+        // Watch for logouts in another tab
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_OUT' || !session) {
+                window.location.replace('login.html');
+            }
+        });
+
         let currentUser = null;
         let userProfile = null;
         let isEditMode = false;
 
         async function loadDashboard() {
             try {
-                // Check if user is logged in
-                const session = await protectPage();
+                // Reuse session already fetched by enforceSession (no duplicate round-trip)
+                const session = activeSession || await checkAuth();
                 if (!session) return;
 
                 currentUser = session.user;
@@ -294,46 +319,16 @@
                     .single();
 
                 if (error && error.code === 'PGRST116') {
-                    // No profile row exists (e.g. Google OAuth first login)
-                    // Auto-create a minimal profile from auth metadata
-                    console.log('No profile found — creating one for first-time user');
-                    const meta = currentUser.user_metadata || {};
-                    const newProfile = {
-                        user_id: currentUser.id,
-                        full_name: meta.full_name || meta.name || currentUser.email.split('@')[0],
-                        email: currentUser.email,
-                        phone: meta.phone || '',
-                        college_name: '',
-                        graduation_year: null,
-                        field_of_study: '',
-                        skills: '',
-                        interests: ''
-                    };
-
-                    const { data: inserted, error: insertErr } = await window.supabaseClient
-                        .from('student_registrations')
-                        .insert([newProfile])
-                        .select()
-                        .single();
-
-                    if (insertErr) {
-                        console.error('Error creating profile:', insertErr);
-                        document.getElementById('loadingProfile').innerHTML = `
-                            <p style="color: #dc3545;">
-                                <i class="fas fa-exclamation-circle"></i>
-                                Could not create profile. Please try again.
-                            </p>
-                        `;
-                    } else {
-                        userProfile = inserted;
-                        renderProfileView(inserted);
-                    }
+                    // Profile not yet created (rare — trigger should handle it)
+                    console.log('Profile not found — trigger may still be processing.');
+                    userProfile = {};
+                    renderProfileView(userProfile);
                 } else if (error) {
                     console.error('Error loading profile:', error);
                     document.getElementById('loadingProfile').innerHTML = `
                         <p style="color: #dc3545;">
                             <i class="fas fa-exclamation-circle"></i>
-                            Could not load profile data
+                            Could not load profile data. Please refresh.
                         </p>
                     `;
                 } else {
@@ -346,7 +341,6 @@
 
             } catch (error) {
                 console.error('Dashboard error:', error);
-                // alert('Error loading dashboard. Please try logging in again.');
             }
         }
 

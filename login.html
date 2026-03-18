@@ -49,7 +49,7 @@
                     <p style="color: var(--text-secondary);">Log in to access your Intern Academy dashboard</p>
                 </div>
 
-                <form id="loginForm" onsubmit="handleLogin(event)">
+                <form id="loginForm" onsubmit="event.preventDefault(); handleLogin(event);">
                     <div style="margin-bottom: 1rem;">
                         <label class="form-label">Email Address *</label>
                         <input type="email" id="email" class="form-control" placeholder="your@example.com" required>
@@ -166,16 +166,23 @@
                 // Check if email is verified
                 if (!data.user.email_confirmed_at) {
                     alert('⚠️ Email Not Verified\n\nPlease check your email and click the verification link before logging in.');
+                    await window.supabaseClient.auth.signOut();
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     return;
                 }
 
-                // Success!
-                alert('✅ Login Successful!\n\nWelcome back, ' + (data.user.user_metadata.full_name || 'Student') + '!');
+                // Determine user type to route correctly
+                const meta         = data.user.user_metadata || {};
+                const isCompany    = !!(meta.company_name);
+                const defaultDash  = isCompany ? 'company-dashboard.html' : 'dashboard.html';
 
-                // Redirect to dashboard or original page
-                const redirectTo = localStorage.getItem('redirectAfterLogin') || 'dashboard.html';
+                // Success!
+                const displayName = meta.full_name || meta.company_name || 'User';
+                alert('✅ Login Successful!\n\nWelcome back, ' + displayName + '!');
+
+                // Redirect to the stored page or the correct dashboard
+                const redirectTo = localStorage.getItem('redirectAfterLogin') || defaultDash;
                 localStorage.removeItem('redirectAfterLogin');
                 window.location.href = redirectTo;
 
@@ -195,11 +202,12 @@
             }
         }
 
-        // Check if already logged in
+        // If already logged in, route to the correct dashboard
         window.addEventListener('load', async () => {
             const session = await checkAuth();
-            if (session) {
-                window.location.href = 'dashboard.html';
+            if (session && session.user) {
+                const isCompany = !!(session.user.user_metadata?.company_name);
+                window.location.href = isCompany ? 'company-dashboard.html' : 'dashboard.html';
             }
         });
     </script>

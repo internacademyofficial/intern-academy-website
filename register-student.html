@@ -45,7 +45,7 @@
                     <p style="color: var(--text-secondary);">Join Intern Academy and kickstart your career journey</p>
                 </div>
 
-                <form onsubmit="handleStudentRegistration(event)">
+                <form onsubmit="event.preventDefault(); handleStudentRegistration(event);">
                     <div style="margin-bottom: 1rem;">
                         <label class="form-label">Full Name *</label>
                         <input type="text" id="fullName" class="form-control" placeholder="John Doe" required>
