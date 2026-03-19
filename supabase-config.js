@@ -123,13 +123,21 @@ async function handleCompanyRegistration(event) {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
     submitBtn.disabled  = true;
 
+    const company_name = document.getElementById('companyName').value.trim();
+
+    console.log("Attempting company signup with:", {
+        email: email,
+        passwordProvided: !!password,
+        company_name: company_name
+    });
+
     try {
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
+        const { data: authData, error } = await window.supabaseClient.auth.signUp({
+            email: email,
+            password: password,
             options: {
                 data: {
-                    company_name:  document.getElementById('companyName').value.trim(),
+                    company_name:  company_name,
                     full_name:     document.getElementById('contactPerson').value.trim(),
                     phone:         document.getElementById('phone').value.trim(),
                     website:       document.getElementById('website').value.trim(),
@@ -141,6 +149,8 @@ async function handleCompanyRegistration(event) {
             }
         });
 
+        console.log('Company Signup Response -> authData:', authData, 'error:', error);
+
         if (error) throw error;
 
         alert('🎉 Company Registration Successful!\n\n✉️ Please check your email to verify your account.\n\nWe\'ve sent a verification link to: ' + email + '\n\nAfter verifying, you can log in to your dashboard.');
@@ -151,7 +161,7 @@ async function handleCompanyRegistration(event) {
 
     } catch (error) {
         console.error('❌ COMPANY REGISTRATION ERROR', error);
-        _handleRegistrationError(error, email);
+        alert('❌ Company Registration Failed:\n\n' + (error.message || 'Unknown error'));
     } finally {
         submitBtn.innerHTML = origText;
         submitBtn.disabled  = false;
