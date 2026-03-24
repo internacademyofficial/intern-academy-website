@@ -1,2 +1,2 @@
 [build]
-  publish = "intern-academy-website-main"
+  publish = "."
